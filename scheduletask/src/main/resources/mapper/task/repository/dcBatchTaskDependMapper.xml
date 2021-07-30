@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!--批次中任务依赖关系表(dc_batch_task_depend)数据库操作-->
+<mapper namespace="com.liujun.schedule.infrastructure.repository.task.mapper.DcBatchTaskDependMapper">
+    <resultMap type="com.liujun.schedule.infrastructure.repository.task.po.DcBatchTaskDependPO"
+               id="dcBatchTaskDependResultMap">
+        <!--批次的ID-->
+        <id property="batchId" column="batch_id"/>
+        <!--调度任务信息表(DC_TASK_INFO)中的任务的ID-->
+        <id property="taskId" column="task_id"/>
+        <!--依赖的任务的ID-->
+        <id property="prevTaskId" column="prev_task_id"/>
+        <!--批次的ID-->
+        <result property="batchId" column="batch_id"/>
+        <!--调度任务信息表(DC_TASK_INFO)中的任务的ID-->
+        <result property="taskId" column="task_id"/>
+        <!--依赖的任务的ID-->
+        <result property="prevTaskId" column="prev_task_id"/>
+    </resultMap>
+    <!--批次中任务依赖关系表(dc_batch_task_depend)单个添加-->
+    <insert id="insert" parameterType="com.liujun.schedule.infrastructure.repository.task.po.DcBatchTaskDependPO">
+        insert into dc_batch_task_depend
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <!--批次的ID-->
+            batch_id,
+            <!--调度任务信息表(DC_TASK_INFO)中的任务的ID-->
+            task_id,
+            <!--依赖的任务的ID-->
+            prev_task_id,
+        </trim>
+        values
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <!--批次的ID-->
+            #{batchId,jdbcType=BIGINT},
+            <!--调度任务信息表(DC_TASK_INFO)中的任务的ID-->
+            #{taskId,jdbcType=BIGINT},
+            <!--依赖的任务的ID-->
+            #{prevTaskId,jdbcType=BIGINT},
+        </trim>
+    </insert>
+
+
+    <!--批次中任务依赖关系表(dc_batch_task_depend)批量添加-->
+    <insert id="insertList" parameterType="com.liujun.schedule.infrastructure.repository.task.po.DcBatchTaskDependPO">
+        insert into dc_batch_task_depend
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <!--批次的ID-->
+            batch_id,
+            <!--调度任务信息表(DC_TASK_INFO)中的任务的ID-->
+            task_id,
+            <!--依赖的任务的ID-->
+            prev_task_id,
+        </trim>
+        values
+        <foreach collection="list" item="item" open="(" separator="),(" close=")" index="index">
+            <!--批次的ID-->
+            #{item.batchId,jdbcType=BIGINT},
+            <!--调度任务信息表(DC_TASK_INFO)中的任务的ID-->
+            #{item.taskId,jdbcType=BIGINT},
+            <!--依赖的任务的ID-->
+            #{item.prevTaskId,jdbcType=BIGINT}
+        </foreach>
+    </insert>
+
+
+    <!--批次中任务依赖关系表(dc_batch_task_depend)批量删除-->
+    <delete id="deleteByIds" parameterType="com.liujun.schedule.infrastructure.repository.task.po.DcBatchTaskDependPO">
+        delete from dc_batch_task_depend
+        <where>
+            <!--批次的ID-->
+            batch_id = #{batchId,jdbcType=BIGINT}
+            <!--调度任务信息表(DC_TASK_INFO)中的任务的ID-->
+            and task_id = #{taskId,jdbcType=BIGINT}
+            <!--依赖的任务的ID-->
+            and prev_task_id = #{prevTaskId,jdbcType=BIGINT}
+        </where>
+    </delete>
+
+    <!--批次中任务依赖关系表(dc_batch_task_depend)分页查询-->
+    <select id="queryPage" parameterType="com.liujun.schedule.infrastructure.repository.task.po.DcBatchTaskDependPO"
+            resultMap="dcBatchTaskDependResultMap">
+        select 
+        batch_id,
+        task_id,
+        prev_task_id
+         from 
+        dc_batch_task_depend
+    </select>
+
+    <!--批次中任务依赖关系表(dc_batch_task_depend)按id查询详细-->
+    <select id="detail" parameterType="com.liujun.schedule.infrastructure.repository.task.po.DcBatchTaskDependPO"
+            resultMap="dcBatchTaskDependResultMap">
+        select
+        batch_id,
+        task_id,
+        prev_task_id
+        from
+        dc_batch_task_depend
+        <where>
+            <!--批次的ID-->
+            batch_id = #{batchId,jdbcType=BIGINT}
+            <!--调度任务信息表(DC_TASK_INFO)中的任务的ID-->
+            and task_id = #{taskId,jdbcType=BIGINT}
+            <!--依赖的任务的ID-->
+            and prev_task_id = #{prevTaskId,jdbcType=BIGINT}
+        </where>
+    </select>
+
+</mapper>

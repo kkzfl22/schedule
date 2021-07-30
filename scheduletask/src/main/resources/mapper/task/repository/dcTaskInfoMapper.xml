@@ -1,0 +1,294 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!--调度任务信息表(dc_task_info)数据库操作-->
+<mapper namespace="com.liujun.schedule.infrastructure.repository.task.mapper.DcTaskInfoMapper">
+    <resultMap type="com.liujun.schedule.infrastructure.repository.task.po.DcTaskInfoPO" id="dcTaskInfoResultMap">
+        <!--任务的ID,-->
+        <id property="taskId" column="task_id"/>
+        <!--任务的ID,-->
+        <result property="taskId" column="task_id"/>
+        <!--目录的id-->
+        <result property="taskDirId" column="task_dir_id"/>
+        <!--任务的名称-->
+        <result property="taskName" column="task_name"/>
+        <!--任务的类型:关联DC_TASK_TYPE表-->
+        <result property="taskType" column="task_type"/>
+        <!--任务的状态, 1:正常状态,0，停用状态-->
+        <result property="status" column="status"/>
+        <!--任务的的配制-->
+        <result property="taskCfg" column="task_cfg"/>
+        <!--重试配制:-1,无限重试;5,15,30.执行后5秒重试，以此类推,成功则不再重试。-->
+        <result property="taskRetry" column="task_retry"/>
+        <!--任务的描述-->
+        <result property="taskMsg" column="task_msg"/>
+        <!--创建者-->
+        <result property="creator" column="creator"/>
+        <!--更新者-->
+        <result property="updater" column="updater"/>
+        <!--创建时间-->
+        <result property="createTime" column="create_time"/>
+        <!--更新时间-->
+        <result property="updateTime" column="update_time"/>
+    </resultMap>
+    <!--调度任务信息表(dc_task_info)单个添加-->
+    <insert id="insert" parameterType="com.liujun.schedule.infrastructure.repository.task.po.DcTaskInfoPO">
+        insert into dc_task_info
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <!--任务的ID,-->
+            task_id,
+            <!--目录的id-->
+            task_dir_id,
+            <!--任务的名称-->
+            task_name,
+            <!--任务的类型:关联DC_TASK_TYPE表-->
+            task_type,
+            <!--任务的状态, 1:正常状态,0，停用状态-->
+            status,
+            <!--任务的的配制-->
+            task_cfg,
+            <!--重试配制:-1,无限重试;5,15,30.执行后5秒重试，以此类推,成功则不再重试。-->
+            task_retry,
+            <!--任务的描述-->
+            task_msg,
+            <!--创建者-->
+            creator,
+            <!--更新者-->
+            updater,
+            <!--创建时间-->
+            create_time,
+            <!--更新时间-->
+            update_time,
+        </trim>
+        values
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <!--任务的ID,-->
+            #{taskId,jdbcType=BIGINT},
+            <!--目录的id-->
+            #{taskDirId,jdbcType=BIGINT},
+            <!--任务的名称-->
+            #{taskName,jdbcType=VARCHAR},
+            <!--任务的类型:关联DC_TASK_TYPE表-->
+            #{taskType,jdbcType=VARCHAR},
+            <!--任务的状态, 1:正常状态,0，停用状态-->
+            #{status,jdbcType=INTEGER},
+            <!--任务的的配制-->
+            #{taskCfg,jdbcType=VARCHAR},
+            <!--重试配制:-1,无限重试;5,15,30.执行后5秒重试，以此类推,成功则不再重试。-->
+            #{taskRetry,jdbcType=VARCHAR},
+            <!--任务的描述-->
+            #{taskMsg,jdbcType=VARCHAR},
+            <!--创建者-->
+            #{creator,jdbcType=VARCHAR},
+            <!--更新者-->
+            #{updater,jdbcType=VARCHAR},
+            <!--创建时间-->
+            #{createTime,jdbcType=TIMESTAMP},
+            <!--更新时间-->
+            #{updateTime,jdbcType=TIMESTAMP},
+        </trim>
+    </insert>
+
+
+    <!--调度任务信息表(dc_task_info)批量添加-->
+    <insert id="insertList" parameterType="com.liujun.schedule.infrastructure.repository.task.po.DcTaskInfoPO">
+        insert into dc_task_info
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <!--任务的ID,-->
+            task_id,
+            <!--目录的id-->
+            task_dir_id,
+            <!--任务的名称-->
+            task_name,
+            <!--任务的类型:关联DC_TASK_TYPE表-->
+            task_type,
+            <!--任务的状态, 1:正常状态,0，停用状态-->
+            status,
+            <!--任务的的配制-->
+            task_cfg,
+            <!--重试配制:-1,无限重试;5,15,30.执行后5秒重试，以此类推,成功则不再重试。-->
+            task_retry,
+            <!--任务的描述-->
+            task_msg,
+            <!--创建者-->
+            creator,
+            <!--更新者-->
+            updater,
+            <!--创建时间-->
+            create_time,
+            <!--更新时间-->
+            update_time,
+        </trim>
+        values
+        <foreach collection="list" item="item" open="(" separator="),(" close=")" index="index">
+            <!--任务的ID,-->
+            #{item.taskId,jdbcType=BIGINT},
+            <!--目录的id-->
+            #{item.taskDirId,jdbcType=BIGINT},
+            <!--任务的名称-->
+            #{item.taskName,jdbcType=VARCHAR},
+            <!--任务的类型:关联DC_TASK_TYPE表-->
+            #{item.taskType,jdbcType=VARCHAR},
+            <!--任务的状态, 1:正常状态,0，停用状态-->
+            #{item.status,jdbcType=INTEGER},
+            <!--任务的的配制-->
+            #{item.taskCfg,jdbcType=VARCHAR},
+            <!--重试配制:-1,无限重试;5,15,30.执行后5秒重试，以此类推,成功则不再重试。-->
+            #{item.taskRetry,jdbcType=VARCHAR},
+            <!--任务的描述-->
+            #{item.taskMsg,jdbcType=VARCHAR},
+            <!--创建者-->
+            #{item.creator,jdbcType=VARCHAR},
+            <!--更新者-->
+            #{item.updater,jdbcType=VARCHAR},
+            <!--创建时间-->
+            #{item.createTime,jdbcType=TIMESTAMP},
+            <!--更新时间-->
+            #{item.updateTime,jdbcType=TIMESTAMP}
+        </foreach>
+    </insert>
+
+
+    <!--调度任务信息表(dc_task_info)修改方法-->
+    <update id="update" parameterType="com.liujun.schedule.infrastructure.repository.task.po.DcTaskInfoPO">
+        update dc_task_info
+        <set>
+            <trim suffixOverrides=",">
+                <!--目录的id-->
+                <if test=" taskDirId !=  null">
+                    task_dir_id = #{taskDirId,jdbcType=BIGINT},
+                </if>
+                <!--任务的名称-->
+                <if test=" taskName !=  null and '' !=  taskName">
+                    task_name = #{taskName,jdbcType=VARCHAR},
+                </if>
+                <!--任务的类型:关联DC_TASK_TYPE表-->
+                <if test=" taskType !=  null and '' !=  taskType">
+                    task_type = #{taskType,jdbcType=VARCHAR},
+                </if>
+                <!--任务的状态, 1:正常状态,0，停用状态-->
+                <if test=" status !=  null">
+                    status = #{status,jdbcType=INTEGER},
+                </if>
+                <!--任务的的配制-->
+                <if test=" taskCfg !=  null and '' !=  taskCfg">
+                    task_cfg = #{taskCfg,jdbcType=VARCHAR},
+                </if>
+                <!--重试配制:-1,无限重试;5,15,30.执行后5秒重试，以此类推,成功则不再重试。-->
+                <if test=" taskRetry !=  null and '' !=  taskRetry">
+                    task_retry = #{taskRetry,jdbcType=VARCHAR},
+                </if>
+                <!--任务的描述-->
+                <if test=" taskMsg !=  null and '' !=  taskMsg">
+                    task_msg = #{taskMsg,jdbcType=VARCHAR},
+                </if>
+                <!--创建者-->
+                <if test=" creator !=  null and '' !=  creator">
+                    creator = #{creator,jdbcType=VARCHAR},
+                </if>
+                <!--更新者-->
+                <if test=" updater !=  null and '' !=  updater">
+                    updater = #{updater,jdbcType=VARCHAR},
+                </if>
+                <!--创建时间-->
+                <if test=" createTime !=  null">
+                    create_time = #{createTime,jdbcType=TIMESTAMP},
+                </if>
+                <!--更新时间-->
+                <if test=" updateTime !=  null">
+                    update_time = #{updateTime,jdbcType=TIMESTAMP},
+                </if>
+            </trim>
+        </set>
+        <where>
+            <!--任务的ID,-->
+            task_id = #{taskId,jdbcType=BIGINT}
+        </where>
+    </update>
+
+    <!--调度任务信息表(dc_task_info)批量删除-->
+    <delete id="deleteByIds" parameterType="com.liujun.schedule.infrastructure.repository.task.po.DcTaskInfoPO">
+        delete from dc_task_info
+        <where>
+            <!--主键,-->
+            task_id in
+            <foreach collection="taskList" item="item" open="(" separator="," close=")" index="index">
+                #{item}
+            </foreach>
+        </where>
+    </delete>
+
+    <!--调度任务信息表(dc_task_info)分页查询-->
+    <select id="queryPage" parameterType="com.liujun.schedule.infrastructure.repository.task.po.DcTaskInfoPO"
+            resultMap="dcTaskInfoResultMap">
+        select 
+        task_id,
+        task_dir_id,
+        task_name,
+        task_type,
+        status,
+        task_cfg,
+        task_retry,
+        task_msg,
+        creator,
+        updater,
+        create_time,
+        update_time
+         from 
+        dc_task_info
+    </select>
+
+
+    <!--调度任务信息表(dc_task_info)获取任务的id-->
+    <select id="getTaskByTaskList" parameterType="com.liujun.schedule.infrastructure.repository.task.po.DcTaskInfoPO"
+            resultMap="dcTaskInfoResultMap">
+        select
+        task_id,
+        task_dir_id,
+        task_name,
+        task_type,
+        status,
+        task_cfg,
+        task_retry,
+        task_msg,
+        creator,
+        updater,
+        create_time,
+        update_time
+        from
+        dc_task_info
+        <where>
+            <!--主键,-->
+            task_id in
+            <foreach collection="taskList" item="item" open="(" separator="," close=")" index="index">
+                #{item}
+            </foreach>
+        </where>
+    </select>
+
+
+    <!--调度任务信息表(dc_task_info)按id查询详细-->
+    <select id="detail" parameterType="com.liujun.schedule.infrastructure.repository.task.po.DcTaskInfoPO"
+            resultMap="dcTaskInfoResultMap">
+        select
+        task_id,
+        task_dir_id,
+        task_name,
+        task_type,
+        status,
+        task_cfg,
+        task_retry,
+        task_msg,
+        creator,
+        updater,
+        create_time,
+        update_time
+        from
+        dc_task_info
+        <where>
+            <!--任务的ID,-->
+            task_id = #{taskId,jdbcType=BIGINT}
+        </where>
+    </select>
+
+</mapper>

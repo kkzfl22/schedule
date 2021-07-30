@@ -1,0 +1,262 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!--任务的日志信息表(dc_task_log)数据库操作-->
+<mapper namespace="com.liujun.schedule.infrastructure.repository.task.mapper.DcTaskLogMapper">
+    <resultMap type="com.liujun.schedule.infrastructure.repository.task.po.DcTaskLogPO" id="dcTaskLogResultMap">
+        <!--日志ID-->
+        <id property="logId" column="log_id"/>
+        <!--日志ID-->
+        <result property="logId" column="log_id"/>
+        <!--批次号-->
+        <result property="batchId" column="batch_id"/>
+        <!--任务的ID-->
+        <result property="taskId" column="task_id"/>
+        <!--任务名称-->
+        <result property="taskName" column="task_name"/>
+        <!--任务的状态:, 1:成功, 2:任务执行中, -1：失败-->
+        <result property="taskStatus" column="task_status"/>
+        <!--任务的运行次数次数, 从1开始，任务最少执行一次-->
+        <result property="taskRunNum" column="task_run_num"/>
+        <!--任务的的配制-->
+        <result property="taskCfg" column="task_cfg"/>
+        <!--日志信息-->
+        <result property="taskMsg" column="task_msg"/>
+        <!--任务的开始时间-->
+        <result property="taskStartTime" column="task_start_time"/>
+        <!--任务的结束时间-->
+        <result property="taskFinishTime" column="task_finish_time"/>
+        <!--当前任务在任务依赖链中的顺序-->
+        <result property="taskOrder" column="task_order"/>
+        <!--每次执行任务时的一个标识-->
+        <result property="taskRuntimeFlag" column="task_runtime_flag"/>
+    </resultMap>
+    <!--任务的日志信息表(dc_task_log)单个添加-->
+    <insert id="insert" parameterType="com.liujun.schedule.infrastructure.repository.task.po.DcTaskLogPO">
+        insert into dc_task_log
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <!--日志ID-->
+            log_id,
+            <!--批次号-->
+            batch_id,
+            <!--任务的ID-->
+            task_id,
+            <!--任务名称-->
+            task_name,
+            <!--任务的状态:, 1:成功, 2:任务执行中, -1：失败-->
+            task_status,
+            <!--任务的运行次数次数, 从1开始，任务最少执行一次-->
+            task_run_num,
+            <!--任务的的配制-->
+            task_cfg,
+            <!--日志信息-->
+            task_msg,
+            <!--任务的开始时间-->
+            task_start_time,
+            <!--任务的结束时间-->
+            task_finish_time,
+            <!--当前任务在任务依赖链中的顺序-->
+            task_order,
+            <!--每次执行任务时的一个标识-->
+            task_runtime_flag,
+        </trim>
+        values
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <!--日志ID-->
+            #{logId,jdbcType=BIGINT},
+            <!--批次号-->
+            #{batchId,jdbcType=BIGINT},
+            <!--任务的ID-->
+            #{taskId,jdbcType=BIGINT},
+            <!--任务名称-->
+            #{taskName,jdbcType=VARCHAR},
+            <!--任务的状态:, 1:成功, 2:任务执行中, -1：失败-->
+            #{taskStatus,jdbcType=INTEGER},
+            <!--任务的运行次数次数, 从1开始，任务最少执行一次-->
+            #{taskRunNum,jdbcType=INTEGER},
+            <!--任务的的配制-->
+            #{taskCfg,jdbcType=VARCHAR},
+            <!--日志信息-->
+            #{taskMsg,jdbcType=VARCHAR},
+            <!--任务的开始时间-->
+            #{taskStartTime,jdbcType=BIGINT},
+            <!--任务的结束时间-->
+            #{taskFinishTime,jdbcType=BIGINT},
+            <!--当前任务在任务依赖链中的顺序-->
+            #{taskOrder,jdbcType=INTEGER},
+            <!--每次执行任务时的一个标识-->
+            #{taskRuntimeFlag,jdbcType=BIGINT},
+        </trim>
+    </insert>
+
+
+    <!--任务的日志信息表(dc_task_log)批量添加-->
+    <insert id="insertList" parameterType="com.liujun.schedule.infrastructure.repository.task.po.DcTaskLogPO">
+        insert into dc_task_log
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <!--日志ID-->
+            log_id,
+            <!--批次号-->
+            batch_id,
+            <!--任务的ID-->
+            task_id,
+            <!--任务名称-->
+            task_name,
+            <!--任务的状态:, 1:成功, 2:任务执行中, -1：失败-->
+            task_status,
+            <!--任务的运行次数次数, 从1开始，任务最少执行一次-->
+            task_run_num,
+            <!--任务的的配制-->
+            task_cfg,
+            <!--日志信息-->
+            task_msg,
+            <!--任务的开始时间-->
+            task_start_time,
+            <!--任务的结束时间-->
+            task_finish_time,
+            <!--当前任务在任务依赖链中的顺序-->
+            task_order,
+            <!--每次执行任务时的一个标识-->
+            task_runtime_flag,
+        </trim>
+        values
+        <foreach collection="list" item="item" open="(" separator="),(" close=")" index="index">
+            <!--日志ID-->
+            #{item.logId,jdbcType=BIGINT},
+            <!--批次号-->
+            #{item.batchId,jdbcType=BIGINT},
+            <!--任务的ID-->
+            #{item.taskId,jdbcType=BIGINT},
+            <!--任务名称-->
+            #{item.taskName,jdbcType=VARCHAR},
+            <!--任务的状态:, 1:成功, 2:任务执行中, -1：失败-->
+            #{item.taskStatus,jdbcType=INTEGER},
+            <!--任务的运行次数次数, 从1开始，任务最少执行一次-->
+            #{item.taskRunNum,jdbcType=INTEGER},
+            <!--任务的的配制-->
+            #{item.taskCfg,jdbcType=VARCHAR},
+            <!--日志信息-->
+            #{item.taskMsg,jdbcType=VARCHAR},
+            <!--任务的开始时间-->
+            #{item.taskStartTime,jdbcType=BIGINT},
+            <!--任务的结束时间-->
+            #{item.taskFinishTime,jdbcType=BIGINT},
+            <!--当前任务在任务依赖链中的顺序-->
+            #{item.taskOrder,jdbcType=INTEGER},
+            <!--每次执行任务时的一个标识-->
+            #{item.taskRuntimeFlag,jdbcType=BIGINT}
+        </foreach>
+    </insert>
+
+
+    <!--任务的日志信息表(dc_task_log)修改方法-->
+    <update id="update" parameterType="com.liujun.schedule.infrastructure.repository.task.po.DcTaskLogPO">
+        update dc_task_log
+        <set>
+            <trim suffixOverrides=",">
+                <!--批次号-->
+                <if test=" batchId !=  null">
+                    batch_id = #{batchId,jdbcType=BIGINT},
+                </if>
+                <!--任务的ID-->
+                <if test=" taskId !=  null">
+                    task_id = #{taskId,jdbcType=BIGINT},
+                </if>
+                <!--任务名称-->
+                <if test=" taskName !=  null and '' !=  taskName">
+                    task_name = #{taskName,jdbcType=VARCHAR},
+                </if>
+                <!--任务的状态:, 1:成功, 2:任务执行中, -1：失败-->
+                <if test=" taskStatus !=  null">
+                    task_status = #{taskStatus,jdbcType=INTEGER},
+                </if>
+                <!--任务的运行次数次数, 从1开始，任务最少执行一次-->
+                <if test=" taskRunNum !=  null">
+                    task_run_num = #{taskRunNum,jdbcType=INTEGER},
+                </if>
+                <!--任务的的配制-->
+                <if test=" taskCfg !=  null and '' !=  taskCfg">
+                    task_cfg = #{taskCfg,jdbcType=VARCHAR},
+                </if>
+                <!--日志信息-->
+                <if test=" taskMsg !=  null and '' !=  taskMsg">
+                    task_msg = #{taskMsg,jdbcType=VARCHAR},
+                </if>
+                <!--任务的开始时间-->
+                <if test=" taskStartTime !=  null">
+                    task_start_time = #{taskStartTime,jdbcType=BIGINT},
+                </if>
+                <!--任务的结束时间-->
+                <if test=" taskFinishTime !=  null">
+                    task_finish_time = #{taskFinishTime,jdbcType=BIGINT},
+                </if>
+                <!--当前任务在任务依赖链中的顺序-->
+                <if test=" taskOrder !=  null">
+                    task_order = #{taskOrder,jdbcType=INTEGER},
+                </if>
+                <!--每次执行任务时的一个标识-->
+                <if test=" taskRuntimeFlag !=  null">
+                    task_runtime_flag = #{taskRuntimeFlag,jdbcType=BIGINT},
+                </if>
+            </trim>
+        </set>
+        <where>
+            <!--日志ID-->
+            log_id = #{logId,jdbcType=BIGINT}
+        </where>
+    </update>
+
+    <!--任务的日志信息表(dc_task_log)批量删除-->
+    <delete id="deleteByIds" parameterType="com.liujun.schedule.infrastructure.repository.task.po.DcTaskLogPO">
+        delete from dc_task_log
+        <where>
+            <!--日志ID-->
+            log_id = #{logId,jdbcType=BIGINT}
+        </where>
+    </delete>
+
+    <!--任务的日志信息表(dc_task_log)分页查询-->
+    <select id="queryPage" parameterType="com.liujun.schedule.infrastructure.repository.task.po.DcTaskLogPO"
+            resultMap="dcTaskLogResultMap">
+        select 
+        log_id,
+        batch_id,
+        task_id,
+        task_name,
+        task_status,
+        task_run_num,
+        task_cfg,
+        task_msg,
+        task_start_time,
+        task_finish_time,
+        task_order,
+        task_runtime_flag
+         from 
+        dc_task_log
+    </select>
+
+    <!--任务的日志信息表(dc_task_log)按id查询详细-->
+    <select id="detail" parameterType="com.liujun.schedule.infrastructure.repository.task.po.DcTaskLogPO"
+            resultMap="dcTaskLogResultMap">
+        select
+        log_id,
+        batch_id,
+        task_id,
+        task_name,
+        task_status,
+        task_run_num,
+        task_cfg,
+        task_msg,
+        task_start_time,
+        task_finish_time,
+        task_order,
+        task_runtime_flag
+        from
+        dc_task_log
+        <where>
+            <!--日志ID-->
+            log_id = #{logId,jdbcType=BIGINT}
+        </where>
+    </select>
+
+</mapper>

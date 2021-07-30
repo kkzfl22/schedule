@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!--调度任务信息表(dc_task_type)数据库操作-->
+<mapper namespace="com.liujun.schedule.infrastructure.repository.task.mapper.DcTaskTypeMapper">
+    <resultMap type="com.liujun.schedule.infrastructure.repository.task.po.DcTaskTypePO" id="dcTaskTypeResultMap">
+        <!--任务的类型,-->
+        <id property="type" column="type"/>
+        <!--任务的类型,-->
+        <result property="type" column="type"/>
+        <!--类型的信息-->
+        <result property="typeName" column="type_name"/>
+        <!--类型的描述-->
+        <result property="typeMsg" column="type_msg"/>
+        <!--任务的配制信息,以JSON格式-->
+        <result property="typeCfg" column="type_cfg"/>
+    </resultMap>
+    <!--调度任务信息表(dc_task_type)单个添加-->
+    <insert id="insert" parameterType="com.liujun.schedule.infrastructure.repository.task.po.DcTaskTypePO">
+        insert into dc_task_type
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <!--任务的类型,-->
+            type,
+            <!--类型的信息-->
+            type_name,
+            <!--类型的描述-->
+            type_msg,
+            <!--任务的配制信息,以JSON格式-->
+            type_cfg,
+        </trim>
+        values
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <!--任务的类型,-->
+            #{type,jdbcType=VARCHAR},
+            <!--类型的信息-->
+            #{typeName,jdbcType=VARCHAR},
+            <!--类型的描述-->
+            #{typeMsg,jdbcType=VARCHAR},
+            <!--任务的配制信息,以JSON格式-->
+            #{typeCfg,jdbcType=VARCHAR},
+        </trim>
+    </insert>
+
+
+    <!--调度任务信息表(dc_task_type)批量添加-->
+    <insert id="insertList" parameterType="com.liujun.schedule.infrastructure.repository.task.po.DcTaskTypePO">
+        insert into dc_task_type
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <!--任务的类型,-->
+            type,
+            <!--类型的信息-->
+            type_name,
+            <!--类型的描述-->
+            type_msg,
+            <!--任务的配制信息,以JSON格式-->
+            type_cfg,
+        </trim>
+        values
+        <foreach collection="list" item="item" open="(" separator="),(" close=")" index="index">
+            <!--任务的类型,-->
+            #{item.type,jdbcType=VARCHAR},
+            <!--类型的信息-->
+            #{item.typeName,jdbcType=VARCHAR},
+            <!--类型的描述-->
+            #{item.typeMsg,jdbcType=VARCHAR},
+            <!--任务的配制信息,以JSON格式-->
+            #{item.typeCfg,jdbcType=VARCHAR}
+        </foreach>
+    </insert>
+
+
+    <!--调度任务信息表(dc_task_type)修改方法-->
+    <update id="update" parameterType="com.liujun.schedule.infrastructure.repository.task.po.DcTaskTypePO">
+        update dc_task_type
+        <set>
+            <trim suffixOverrides=",">
+                <!--类型的信息-->
+                <if test=" typeName !=  null and '' !=  typeName">
+                    type_name = #{typeName,jdbcType=VARCHAR},
+                </if>
+                <!--类型的描述-->
+                <if test=" typeMsg !=  null and '' !=  typeMsg">
+                    type_msg = #{typeMsg,jdbcType=VARCHAR},
+                </if>
+                <!--任务的配制信息,以JSON格式-->
+                <if test=" typeCfg !=  null and '' !=  typeCfg">
+                    type_cfg = #{typeCfg,jdbcType=VARCHAR},
+                </if>
+            </trim>
+        </set>
+        <where>
+            <!--任务的类型,-->
+            type = #{type,jdbcType=VARCHAR}
+        </where>
+    </update>
+
+    <!--调度任务信息表(dc_task_type)批量删除-->
+    <delete id="deleteByIds" parameterType="com.liujun.schedule.infrastructure.repository.task.po.DcTaskTypePO">
+        delete from dc_task_type
+        <where>
+            <!--任务的类型,-->
+            type = #{type,jdbcType=VARCHAR}
+        </where>
+    </delete>
+
+    <!--调度任务信息表(dc_task_type)查询所有的-->
+    <select id="queryAll"
+            resultMap="dcTaskTypeResultMap">
+        select 
+        type,
+        type_name,
+        type_msg,
+        type_cfg
+         from 
+        dc_task_type
+    </select>
+
+    <!--调度任务信息表(dc_task_type)分页查询-->
+    <select id="queryPage" parameterType="com.liujun.schedule.infrastructure.repository.task.po.DcTaskTypePO"
+            resultMap="dcTaskTypeResultMap">
+        select
+        type,
+        type_name,
+        type_msg,
+        type_cfg
+         from
+        dc_task_type
+    </select>
+
+    <!--调度任务信息表(dc_task_type)按id查询详细-->
+    <select id="detail" parameterType="com.liujun.schedule.infrastructure.repository.task.po.DcTaskTypePO"
+            resultMap="dcTaskTypeResultMap">
+        select
+        type,
+        type_name,
+        type_msg,
+        type_cfg
+        from
+        dc_task_type
+        <where>
+            <!--任务的类型,-->
+            type = #{type,jdbcType=VARCHAR}
+        </where>
+    </select>
+
+</mapper>

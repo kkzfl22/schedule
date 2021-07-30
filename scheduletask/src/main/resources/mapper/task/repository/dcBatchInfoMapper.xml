@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!--批次信息表(dc_batch_info)数据库操作-->
+<mapper namespace="com.liujun.schedule.infrastructure.repository.task.mapper.DcBatchInfoMapper">
+    <resultMap type="com.liujun.schedule.infrastructure.repository.task.po.DcBatchInfoPO" id="dcBatchInfoResultMap">
+        <!--批次的ID-->
+        <id property="batchId" column="batch_id"/>
+        <!--批次的ID-->
+        <result property="batchId" column="batch_id"/>
+        <!--所属任务目录ID-->
+        <result property="taskDirId" column="task_dir_id"/>
+        <!--批次的任务名称-->
+        <result property="batchName" column="batch_name"/>
+        <!--批次任务的描述信息-->
+        <result property="batchMsg" column="batch_msg"/>
+        <!--批次任务的状态，1，启用，0，停用-->
+        <result property="batchStatus" column="batch_status"/>
+        <!--批次的运行状态,0,初始化，1：运行中，2，运行完成-->
+        <result property="batchRunStatus" column="batch_run_status"/>
+        <!--每个批次执行时的标识-->
+        <result property="taskRuntimeFlag" column="task_runtime_flag"/>
+        <!--批次中任务最大并行度，防止一个批次占用过多的线程-->
+        <result property="batchConcurrent" column="batch_concurrent"/>
+        <!--创建者-->
+        <result property="creator" column="creator"/>
+        <!--更新者-->
+        <result property="updater" column="updater"/>
+        <!--创建时间-->
+        <result property="createTime" column="create_time"/>
+        <!--更新时间-->
+        <result property="updateTime" column="update_time"/>
+    </resultMap>
+    <!--批次信息表(dc_batch_info)单个添加-->
+    <insert id="insert" parameterType="com.liujun.schedule.infrastructure.repository.task.po.DcBatchInfoPO">
+        insert into dc_batch_info
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <!--批次的ID-->
+            batch_id,
+            <!--所属任务目录ID-->
+            task_dir_id,
+            <!--批次的任务名称-->
+            batch_name,
+            <!--批次任务的描述信息-->
+            batch_msg,
+            <!--批次任务的状态，1，启用，0，停用-->
+            batch_status,
+            <!--批次的运行状态,0,初始化，1：运行中，2，运行完成-->
+            batch_run_status,
+            <!--每个批次执行时的标识-->
+            task_runtime_flag,
+            <!--批次中任务最大并行度，防止一个批次占用过多的线程-->
+            batch_concurrent,
+            <!--创建者-->
+            creator,
+            <!--更新者-->
+            updater,
+            <!--创建时间-->
+            create_time,
+            <!--更新时间-->
+            update_time,
+        </trim>
+        values
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <!--批次的ID-->
+            #{batchId,jdbcType=BIGINT},
+            <!--所属任务目录ID-->
+            #{taskDirId,jdbcType=BIGINT},
+            <!--批次的任务名称-->
+            #{batchName,jdbcType=VARCHAR},
+            <!--批次任务的描述信息-->
+            #{batchMsg,jdbcType=VARCHAR},
+            <!--批次任务的状态，1，启用，0，停用-->
+            #{batchStatus,jdbcType=INTEGER},
+            <!--批次的运行状态,0,初始化，1：运行中，2，运行完成-->
+            #{batchRunStatus,jdbcType=INTEGER},
+            <!--每个批次执行时的标识-->
+            #{taskRuntimeFlag,jdbcType=BIGINT},
+            <!--批次中任务最大并行度，防止一个批次占用过多的线程-->
+            #{batchConcurrent,jdbcType=INTEGER},
+            <!--创建者-->
+            #{creator,jdbcType=VARCHAR},
+            <!--更新者-->
+            #{updater,jdbcType=VARCHAR},
+            <!--创建时间-->
+            #{createTime,jdbcType=TIMESTAMP},
+            <!--更新时间-->
+            #{updateTime,jdbcType=TIMESTAMP},
+        </trim>
+    </insert>
+
+
+    <!--批次信息表(dc_batch_info)批量添加-->
+    <insert id="insertList" parameterType="com.liujun.schedule.infrastructure.repository.task.po.DcBatchInfoPO">
+        insert into dc_batch_info
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <!--批次的ID-->
+            batch_id,
+            <!--所属任务目录ID-->
+            task_dir_id,
+            <!--批次的任务名称-->
+            batch_name,
+            <!--批次任务的描述信息-->
+            batch_msg,
+            <!--批次任务的状态，1，启用，0，停用-->
+            batch_status,
+            <!--批次的运行状态,0,初始化，1：运行中，2，运行完成-->
+            batch_run_status,
+            <!--每个批次执行时的标识-->
+            task_runtime_flag,
+            <!--批次中任务最大并行度，防止一个批次占用过多的线程-->
+            batch_concurrent,
+            <!--创建者-->
+            creator,
+            <!--更新者-->
+            updater,
+            <!--创建时间-->
+            create_time,
+            <!--更新时间-->
+            update_time,
+        </trim>
+        values
+        <foreach collection="list" item="item" open="(" separator="),(" close=")" index="index">
+            <!--批次的ID-->
+            #{item.batchId,jdbcType=BIGINT},
+            <!--所属任务目录ID-->
+            #{item.taskDirId,jdbcType=BIGINT},
+            <!--批次的任务名称-->
+            #{item.batchName,jdbcType=VARCHAR},
+            <!--批次任务的描述信息-->
+            #{item.batchMsg,jdbcType=VARCHAR},
+            <!--批次任务的状态，1，启用，0，停用-->
+            #{item.batchStatus,jdbcType=INTEGER},
+            <!--批次的运行状态,0,初始化，1：运行中，2，运行完成-->
+            #{item.batchRunStatus,jdbcType=INTEGER},
+            <!--每个批次执行时的标识-->
+            #{item.taskRuntimeFlag,jdbcType=BIGINT},
+            <!--批次中任务最大并行度，防止一个批次占用过多的线程-->
+            #{item.batchConcurrent,jdbcType=INTEGER},
+            <!--创建者-->
+            #{item.creator,jdbcType=VARCHAR},
+            <!--更新者-->
+            #{item.updater,jdbcType=VARCHAR},
+            <!--创建时间-->
+            #{item.createTime,jdbcType=TIMESTAMP},
+            <!--更新时间-->
+            #{item.updateTime,jdbcType=TIMESTAMP}
+        </foreach>
+    </insert>
+
+
+    <!--批次信息表(dc_batch_info)修改方法-->
+    <update id="updateRunStatus" parameterType="com.liujun.schedule.infrastructure.repository.task.po.DcBatchInfoPO">
+        update dc_batch_info
+        <set>
+            <trim suffixOverrides=",">
+                batch_run_status = #{batchRunStatus,jdbcType=INTEGER},
+            </trim>
+        </set>
+        <where>
+            <!--批次的ID-->
+            batch_id = #{batchId,jdbcType=BIGINT}
+            and batch_run_status =  #{batchRunStatusBefore,jdbcType=INTEGER}
+        </where>
+    </update>
+
+    <!--批次信息表(dc_batch_info)批量删除-->
+    <delete id="deleteByIds" parameterType="com.liujun.schedule.infrastructure.repository.task.po.DcBatchInfoPO">
+        delete from dc_batch_info
+        <where>
+            <!--主键,-->
+            batch_id in
+            <foreach collection="batchList" item="item" open="(" separator="," close=")" index="index">
+                #{item}
+            </foreach>
+        </where>
+    </delete>
+
+    <!--批次信息表(dc_batch_info)分页查询-->
+    <select id="queryPage" parameterType="com.liujun.schedule.infrastructure.repository.task.po.DcBatchInfoPO"
+            resultMap="dcBatchInfoResultMap">
+        select 
+        batch_id,
+        task_dir_id,
+        batch_name,
+        batch_msg,
+        batch_status,
+        batch_run_status,
+        task_runtime_flag,
+        batch_concurrent,
+        creator,
+        updater,
+        create_time,
+        update_time
+         from 
+        dc_batch_info
+    </select>
+
+    <!--批次信息表(dc_batch_info)按id查询详细-->
+    <select id="detail" parameterType="com.liujun.schedule.infrastructure.repository.task.po.DcBatchInfoPO"
+            resultMap="dcBatchInfoResultMap">
+        select
+        batch_id,
+        task_dir_id,
+        batch_name,
+        batch_msg,
+        batch_status,
+        batch_run_status,
+        task_runtime_flag,
+        batch_concurrent,
+        creator,
+        updater,
+        create_time,
+        update_time
+        from
+        dc_batch_info
+        <where>
+            <!--批次的ID-->
+            batch_id = #{batchId,jdbcType=BIGINT}
+        </where>
+    </select>
+
+</mapper>

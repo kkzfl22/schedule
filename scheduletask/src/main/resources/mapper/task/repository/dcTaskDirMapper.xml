@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!--任务目录信息表(dc_task_dir)数据库操作-->
+<mapper namespace="com.liujun.schedule.infrastructure.repository.task.mapper.DcTaskDirMapper">
+    <resultMap type="com.liujun.schedule.infrastructure.repository.task.po.DcTaskDirPO" id="dcTaskDirResultMap">
+        <!--任务目录的ID-->
+        <id property="taskDirId" column="task_dir_id"/>
+        <!--任务目录的ID-->
+        <result property="taskDirId" column="task_dir_id"/>
+        <!--父任务目录的ID-->
+        <result property="parentDirId" column="parent_dir_id"/>
+        <!--任务目录名称-->
+        <result property="taskDirName" column="task_dir_name"/>
+        <!--任务目录描述-->
+        <result property="taskDirDescription" column="task_dir_description"/>
+        <!--排序号-->
+        <result property="taskOrder" column="task_order"/>
+        <!--创建者-->
+        <result property="creator" column="creator"/>
+        <!--更新者-->
+        <result property="updater" column="updater"/>
+        <!--创建时间-->
+        <result property="createTime" column="create_time"/>
+        <!--更新时间-->
+        <result property="updateTime" column="update_time"/>
+    </resultMap>
+    <!--任务目录信息表(dc_task_dir)单个添加-->
+    <insert id="insert" parameterType="com.liujun.schedule.infrastructure.repository.task.po.DcTaskDirPO">
+        insert into dc_task_dir 
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <!--任务目录的ID-->
+            task_dir_id,
+            <!--父任务目录的ID-->
+            parent_dir_id,
+            <!--任务目录名称-->
+            task_dir_name,
+            <!--任务目录描述-->
+            task_dir_description,
+            <!--排序号-->
+            task_order,
+            <!--创建者-->
+            creator,
+            <!--更新者-->
+            updater,
+            <!--创建时间-->
+            create_time,
+            <!--更新时间-->
+            update_time,
+        </trim>
+        values
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <!--任务目录的ID-->
+            #{taskDirId,jdbcType=BIGINT},
+            <!--父任务目录的ID-->
+            #{parentDirId,jdbcType=BIGINT},
+            <!--任务目录名称-->
+            #{taskDirName,jdbcType=VARCHAR},
+            <!--任务目录描述-->
+            #{taskDirDescription,jdbcType=VARCHAR},
+            <!--排序号-->
+            #{taskOrder,jdbcType=INTEGER},
+            <!--创建者-->
+            #{creator,jdbcType=VARCHAR},
+            <!--更新者-->
+            #{updater,jdbcType=VARCHAR},
+            <!--创建时间-->
+            #{createTime,jdbcType=TIMESTAMP},
+            <!--更新时间-->
+            #{updateTime,jdbcType=TIMESTAMP},
+        </trim>
+    </insert>
+
+
+    <!--任务目录信息表(dc_task_dir)批量添加-->
+    <insert id="insertList" parameterType="com.liujun.schedule.infrastructure.repository.task.po.DcTaskDirPO">
+        insert into dc_task_dir 
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <!--任务目录的ID-->
+            task_dir_id,
+            <!--父任务目录的ID-->
+            parent_dir_id,
+            <!--任务目录名称-->
+            task_dir_name,
+            <!--任务目录描述-->
+            task_dir_description,
+            <!--排序号-->
+            task_order,
+            <!--创建者-->
+            creator,
+            <!--更新者-->
+            updater,
+            <!--创建时间-->
+            create_time,
+            <!--更新时间-->
+            update_time,
+        </trim>
+        values
+        <foreach collection="list" item="item" open="(" separator="),(" close=")" index="index">
+            <!--任务目录的ID-->
+            #{item.taskDirId,jdbcType=BIGINT},
+            <!--父任务目录的ID-->
+            #{item.parentDirId,jdbcType=BIGINT},
+            <!--任务目录名称-->
+            #{item.taskDirName,jdbcType=VARCHAR},
+            <!--任务目录描述-->
+            #{item.taskDirDescription,jdbcType=VARCHAR},
+            <!--排序号-->
+            #{item.taskOrder,jdbcType=INTEGER},
+            <!--创建者-->
+            #{item.creator,jdbcType=VARCHAR},
+            <!--更新者-->
+            #{item.updater,jdbcType=VARCHAR},
+            <!--创建时间-->
+            #{item.createTime,jdbcType=TIMESTAMP},
+            <!--更新时间-->
+            #{item.updateTime,jdbcType=TIMESTAMP}
+        </foreach>
+    </insert>
+
+
+    <!--任务目录信息表(dc_task_dir)修改方法-->
+    <update id="update" parameterType="com.liujun.schedule.infrastructure.repository.task.po.DcTaskDirPO">
+        update dc_task_dir
+        <set>
+            <trim  suffixOverrides=",">
+                <!--父任务目录的ID-->
+                <if test=" parentDirId !=  null">
+                     parent_dir_id = #{parentDirId,jdbcType=BIGINT},
+                </if>
+                <!--任务目录名称-->
+                <if test=" taskDirName !=  null and '' !=  taskDirName">
+                     task_dir_name = #{taskDirName,jdbcType=VARCHAR},
+                </if>
+                <!--任务目录描述-->
+                <if test=" taskDirDescription !=  null and '' !=  taskDirDescription">
+                     task_dir_description = #{taskDirDescription,jdbcType=VARCHAR},
+                </if>
+                <!--排序号-->
+                <if test=" taskOrder !=  null">
+                     task_order = #{taskOrder,jdbcType=INTEGER},
+                </if>
+                <!--创建者-->
+                <if test=" creator !=  null and '' !=  creator">
+                     creator = #{creator,jdbcType=VARCHAR},
+                </if>
+                <!--更新者-->
+                <if test=" updater !=  null and '' !=  updater">
+                     updater = #{updater,jdbcType=VARCHAR},
+                </if>
+                <!--创建时间-->
+                <if test=" createTime !=  null">
+                     create_time = #{createTime,jdbcType=TIMESTAMP},
+                </if>
+                <!--更新时间-->
+                <if test=" updateTime !=  null">
+                     update_time = #{updateTime,jdbcType=TIMESTAMP},
+                </if>
+            </trim>
+        </set>
+        <where> 
+            <!--任务目录的ID-->
+            task_dir_id = #{taskDirId,jdbcType=BIGINT}
+        </where> 
+    </update>
+
+    <!--任务目录信息表(dc_task_dir)批量删除-->
+    <delete id="deleteByIds" parameterType="com.liujun.schedule.infrastructure.repository.task.po.DcTaskDirPO">
+        delete from  dc_task_dir
+        <where> 
+            <!--任务目录的ID-->
+            task_dir_id = #{taskDirId,jdbcType=BIGINT}
+        </where> 
+    </delete>
+
+    <!--任务目录信息表(dc_task_dir)分页查询-->
+    <select id="queryPage" parameterType="com.liujun.schedule.infrastructure.repository.task.po.DcTaskDirPO" resultMap="dcTaskDirResultMap">
+        select 
+        task_dir_id,
+        parent_dir_id,
+        task_dir_name,
+        task_dir_description,
+        task_order,
+        creator,
+        updater,
+        create_time,
+        update_time
+         from 
+        dc_task_dir
+    </select>
+
+    <!--任务目录信息表(dc_task_dir)按id查询详细-->
+    <select id="detail" parameterType="com.liujun.schedule.infrastructure.repository.task.po.DcTaskDirPO" resultMap="dcTaskDirResultMap">
+        select 
+        task_dir_id,
+        parent_dir_id,
+        task_dir_name,
+        task_dir_description,
+        task_order,
+        creator,
+        updater,
+        create_time,
+        update_time
+         from 
+        dc_task_dir
+        <where> 
+            <!--任务目录的ID-->
+            task_dir_id = #{taskDirId,jdbcType=BIGINT}
+        </where> 
+    </select>
+
+</mapper>
