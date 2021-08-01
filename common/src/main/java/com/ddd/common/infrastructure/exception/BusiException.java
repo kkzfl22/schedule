@@ -14,6 +14,8 @@ public class BusiException extends RuntimeException {
   /** 错误码信息 */
   private ErrorCodeEnum errorCode;
 
+
+
   public BusiException(ErrorCodeEnum errorCode) {
     this.errorCode = errorCode;
   }

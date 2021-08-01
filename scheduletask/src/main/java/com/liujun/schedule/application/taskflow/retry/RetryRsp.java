@@ -14,21 +14,33 @@ public class RetryRsp {
      */
     private int retryNum;
 
+
+    /**
+     * 重试的执行结果
+     */
+    private Boolean result;
+
     /**
      * 执行的结果
      */
-    private Object result;
+    private Object response;
 
-    public RetryRsp(int retryNum, Object result) {
+
+    public RetryRsp(int retryNum, boolean result, Object response) {
         this.retryNum = retryNum;
         this.result = result;
+        this.response = response;
+    }
+
+    public Object getResponse() {
+        return response;
     }
 
     public int getRetryNum() {
         return retryNum;
     }
 
-    public Object getResult() {
+    public Boolean getResult() {
         return result;
     }
 
@@ -37,6 +49,7 @@ public class RetryRsp {
         final StringBuilder sb = new StringBuilder("RetryRsp{");
         sb.append("retryNum=").append(retryNum);
         sb.append(", result=").append(result);
+        sb.append(", response=").append(response);
         sb.append('}');
         return sb.toString();
     }

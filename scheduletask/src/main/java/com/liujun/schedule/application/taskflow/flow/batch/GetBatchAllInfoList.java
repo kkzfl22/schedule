@@ -5,8 +5,10 @@ import com.ddd.common.infrastructure.base.context.ContextContainer;
 import com.ddd.common.infrastructure.base.context.FlowInf;
 import com.liujun.schedule.application.taskflow.constant.BatchFLowEnum;
 import com.liujun.schedule.domain.task.entity.DcBatchTaskDO;
+import com.liujun.schedule.domain.task.entity.DcBatchTaskDependDO;
 import com.liujun.schedule.domain.task.entity.DcTaskInfoDO;
 import com.liujun.schedule.domain.task.entity.DcTaskTypeDO;
+import com.liujun.schedule.domain.task.service.DcBatchTaskDependDomainService;
 import com.liujun.schedule.domain.task.service.DcBatchTaskDomainService;
 import com.liujun.schedule.domain.task.service.DcTaskInfoDomainService;
 import com.liujun.schedule.domain.task.service.DcTaskTypeDomainService;
@@ -22,19 +24,19 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * 获取批次下所有的任务信息
+ * 获取关联的批次的任务的所有信息
  *
  * @author liujun
  * @version 0.0.1
  * @date 2019/12/12
  */
-@Service("getBatchTaskList")
-public class GetBatchTaskList implements FlowInf {
+@Service("getBatchAllData")
+public class GetBatchAllInfoList implements FlowInf {
 
     /**
      * 日志
      */
-    private Logger logger = LoggerFactory.getLogger(GetBatchTaskList.class);
+    private Logger logger = LoggerFactory.getLogger(GetBatchAllInfoList.class);
 
     /**
      * 批次任务
@@ -55,6 +57,12 @@ public class GetBatchTaskList implements FlowInf {
     @Autowired
     private DcTaskTypeDomainService typeDomainService;
 
+
+    /**
+     * 依赖关系
+     */
+    @Autowired
+    private DcBatchTaskDependDomainService taskDependService;
 
     @Override
     public boolean invokeFlow(ContextContainer context) {
@@ -92,6 +100,12 @@ public class GetBatchTaskList implements FlowInf {
 
         context.put(BatchFLowEnum.PROC_DATA_TYPE_MAP.name(), map);
 
+
+        // 通过任务获取数据
+        List<DcBatchTaskDependDO> dependList = this.loadDepend(batchId);
+        context.put(BatchFLowEnum.PROC_DATA_DEPEND_LINK.name(), dependList);
+
+
         return true;
     }
 
@@ -101,17 +115,17 @@ public class GetBatchTaskList implements FlowInf {
      * @return
      */
     private List<Long> getTaskIds(List<DcBatchTaskDO> batchTaskList) {
-        if (null != batchTaskList && !batchTaskList.isEmpty()) {
-            List<Long> taskIds = new ArrayList<>(batchTaskList.size());
-
-            for (DcBatchTaskDO taskInfo : batchTaskList) {
-                taskIds.add(taskInfo.getTaskId());
-            }
-
-            return taskIds;
+        if (CollUtil.isEmpty(batchTaskList)) {
+            return Collections.emptyList();
         }
 
-        return Collections.emptyList();
+        List<Long> taskIds = new ArrayList<>(batchTaskList.size());
+
+        for (DcBatchTaskDO taskInfo : batchTaskList) {
+            taskIds.add(taskInfo.getTaskId());
+        }
+
+        return taskIds;
     }
 
 
@@ -125,7 +139,7 @@ public class GetBatchTaskList implements FlowInf {
 
         Map<Long, DcTaskInfoDO> dataRsp = new HashMap<>(0);
 
-        if (null == taskIds || taskIds.isEmpty()) {
+        if (CollUtil.isEmpty(taskIds)) {
             return dataRsp;
         }
 
@@ -142,6 +156,25 @@ public class GetBatchTaskList implements FlowInf {
         }
 
         return dataRsp;
+    }
+
+
+    /**
+     * 离开载数据关系
+     *
+     * @param batchId
+     * @return
+     */
+    private List<DcBatchTaskDependDO> loadDepend(Long batchId) {
+        DcBatchTaskDependDO queryBean = new DcBatchTaskDependDO();
+        queryBean.setBatchId(batchId);
+        List<DcBatchTaskDependDO> listData = taskDependService.getDependByBatchId(queryBean);
+
+        if (CollUtil.isEmpty(listData)) {
+            return Collections.emptyList();
+        }
+
+        return listData;
     }
 
 

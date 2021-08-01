@@ -120,7 +120,7 @@ CREATE TABLE DC_BATCH_LOG
     BATCH_ID          BIGINT(20)  NOT NULL COMMENT '批次号',
     BATCH_NAME        VARCHAR(40) NOT NULL COMMENT '任务的名称',
     BATCH_CONCURRENT  INT(3)      NOT NULL COMMENT '批次中任务最大并行度，防止一个批次占用过多的线程',
-    BATCH_STATUS      INT(2)      NOT NULL DEFAULT 0 COMMENT '任务的状态:, 1:成功, 2:任务执行中, 0:初始化状态 -1：失败',
+    BATCH_RUN_STATUS  INT(2)      NOT NULL DEFAULT 0 COMMENT '任务的状态:, 1:成功, 2:任务执行中, 0:初始化状态 -1：失败',
     BATCH_MSG         VARCHAR(500) COMMENT '任务日志，成功为空，失败时记录下失败信息',
     BATCH_START_TIME  BIGINT(20) COMMENT '批次的开始时间',
     BATCH_FINISH_TIME BIGINT(20) COMMENT '批次的结束时间',

@@ -35,48 +35,26 @@ public class RunTaskThread implements Runnable {
 
 
     /**
-     * 并行控制，主要是防止一个任务占用了全部资源池，而其他任务完全用不到线程池
-     */
-    private final Semaphore concurrent;
-
-
-    /**
      * 创建一个线程运行器，
      *
      * @param batchId       批量号
      * @param taskId        任务的id
      * @param runTimeFlag   任务运行号
      * @param threadTaskRun 运行流程
-     * @param concurrent    线程池中当前任务的最大并行度
      */
     public RunTaskThread(
-            Long batchId, Long taskId, long runTimeFlag, ThreadTaskRunFlow threadTaskRun, int concurrent) {
+            Long batchId, Long taskId, long runTimeFlag, ThreadTaskRunFlow threadTaskRun) {
         this.batchId = batchId;
         this.taskId = taskId;
         this.runTimeFlag = runTimeFlag;
         this.threadTaskRun = threadTaskRun;
-        this.concurrent = new Semaphore(concurrent);
     }
 
 
     @Override
     public void run() {
-
-        boolean currRun = false;
-        try {
-            concurrent.acquire();
-            currRun = true;
-            // 进行任务的执行操作
-            threadTaskRun.runThread(batchId, taskId, runTimeFlag);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        } finally {
-            //当使用完毕后，则对资源进行释放
-            if (currRun) {
-                concurrent.release();
-            }
-        }
-
+        // 进行任务的执行操作
+        threadTaskRun.runThread(batchId, taskId, runTimeFlag);
 
     }
 }

@@ -47,7 +47,7 @@ public class BatchRunFlow {
             }
         }
 
-        logger.info("thread run sqlmap.sqlmap.job batchid {}  rsp {}", batchId, success);
+        logger.info("thread run task job batchid {}  rsp {}", batchId, success);
     }
 
     public void setBatchFlow(List<FlowInf> batchFlow) {

@@ -10,18 +10,22 @@ import com.liujun.schedule.application.taskflow.constant.BatchFLowEnum;
 import com.liujun.schedule.domain.task.constant.BatchRunStatusEnum;
 import com.liujun.schedule.domain.task.entity.DcBatchInfoDO;
 import com.liujun.schedule.domain.task.entity.DcBatchTaskDO;
+import com.liujun.schedule.domain.task.entity.DcBatchTaskDependDO;
 import com.liujun.schedule.domain.task.entity.DcTaskInfoDO;
 import com.liujun.schedule.domain.task.entity.DcTaskTypeDO;
 import com.liujun.schedule.domain.task.service.DcBatchInfoDomainService;
+import com.liujun.schedule.domain.task.service.DcBatchTaskDependDomainService;
 import com.liujun.schedule.domain.task.service.DcBatchTaskDomainService;
 import com.liujun.schedule.domain.task.service.DcTaskInfoDomainService;
 import com.liujun.schedule.domain.task.service.DcTaskTypeDomainService;
 import com.liujun.schedule.domain.task.service.TestDcBatchInfoDomainService;
+import com.liujun.schedule.domain.task.service.TestDcBatchTaskDependDomainService;
 import com.liujun.schedule.domain.task.service.TestDcTaskInfoDomainService;
 import com.liujun.schedule.domain.task.service.TestDcTaskTypeDomainService;
 import com.liujun.schedule.infrastructure.comm.uid.UidGenerator;
 import com.liujun.schedule.infrastructure.repository.task.mapper.config.MyBatisScanConfiguration;
 import com.liujun.schedule.infrastructure.repository.task.persistence.DcBatchInfoRepositoryImpl;
+import com.liujun.schedule.infrastructure.repository.task.persistence.DcBatchTaskDependRepositoryImpl;
 import com.liujun.schedule.infrastructure.repository.task.persistence.DcBatchTaskRepositoryImpl;
 import com.liujun.schedule.infrastructure.repository.task.persistence.DcTaskInfoRepositoryImpl;
 import com.liujun.schedule.infrastructure.repository.task.persistence.DcTaskTypeRepositoryImpl;
@@ -45,16 +49,17 @@ import java.util.List;
  * @author liujun
  * @since 2021/7/30
  */
-@SpringBootTest(classes = {GetBatchTaskList.class, DruidDataSourceAutoConfigure.class, UidGenerator.class, MybatisAutoConfiguration.class,
+@SpringBootTest(classes = {GetBatchAllInfoList.class, DruidDataSourceAutoConfigure.class, UidGenerator.class, MybatisAutoConfiguration.class,
         MyBatisScanConfiguration.class})
 @Transactional(transactionManager = "testTransactionManager")
 @Import(value = {DcBatchInfoDomainService.class, DcBatchInfoRepositoryImpl.class,
         DcTaskInfoDomainService.class, DcTaskInfoRepositoryImpl.class,
         DcBatchTaskDomainService.class, DcBatchTaskRepositoryImpl.class,
-        DcTaskTypeDomainService.class, DcTaskTypeRepositoryImpl.class
+        DcTaskTypeDomainService.class, DcTaskTypeRepositoryImpl.class,
+        DcBatchTaskDependDomainService.class, DcBatchTaskDependRepositoryImpl.class
 })
 @TestPropertySource("classpath:application.yml")
-public class TestGetBatchTaskList {
+public class TestGetBatchAllInfoList {
 
 
     /**
@@ -85,10 +90,17 @@ public class TestGetBatchTaskList {
 
 
     /**
+     * 任务依赖关系
+     */
+    @Autowired
+    private DcBatchTaskDependDomainService taskDependDomainService;
+
+
+    /**
      * 检查
      */
     @Autowired
-    @Qualifier("getBatchTaskList")
+    @Qualifier("getBatchAllData")
     private FlowInf getBatchTaskList;
 
 
@@ -101,6 +113,7 @@ public class TestGetBatchTaskList {
         List<DcTaskInfoDO> taskList = this.getTaskInfo();
         List<DcBatchTaskDO> batchList = this.batchTask(batchInfo.getBatchId(), taskList);
         List<DcTaskTypeDO> typeList = this.typeInfo();
+        List<DcBatchTaskDependDO> batchDependList = this.taskDependList(batchInfo.getBatchId());
 
         try {
             ContextContainer container = new ContextContainer();
@@ -133,6 +146,11 @@ public class TestGetBatchTaskList {
             for (DcTaskTypeDO taskType : typeList) {
                 Boolean addRsp = typeDomainService.deleteByIds(taskType);
                 Assertions.assertEquals(true, addRsp);
+            }
+
+            for (DcBatchTaskDependDO dependInfo : batchDependList) {
+                boolean deleteDependRsp = taskDependDomainService.deleteByIds(dependInfo);
+                Assertions.assertEquals(true, deleteDependRsp);
             }
         }
     }
@@ -192,7 +210,51 @@ public class TestGetBatchTaskList {
             Assertions.assertEquals(true, deleteRsp);
 
 
+            DcBatchTaskDO batchTask = new DcBatchTaskDO();
+            batchTask.setBatchId(batchInfo.getBatchId());
+            Boolean deleteBatchRsp = batchTaskDomainService.deleteByBatchId(batchTask);
+            Assertions.assertEquals(true, deleteBatchRsp);
 
+        }
+    }
+
+
+    /**
+     * 进行批次任务的测试，运行成功
+     */
+    @Test
+    public void runTypeNull() {
+        DcBatchInfoDO batchInfo = this.getBatchInfo(BatchRunStatusEnum.INIT.getStatus());
+        List<DcTaskInfoDO> taskList = this.getTaskInfo();
+        List<DcBatchTaskDO> batchList = this.batchTask(batchInfo.getBatchId(), taskList);
+        List<DcTaskTypeDO> taskTypeList = TestDcTaskTypeDomainService.getListDataBean();
+
+        try {
+            ContextContainer container = new ContextContainer();
+            container.put(BatchFLowEnum.INPUT_BATCH_ID.name(), batchInfo.getBatchId());
+
+            boolean rsp = getBatchTaskList.invokeFlow(container);
+            Assertions.assertEquals(false, rsp);
+        } finally {
+            batchInfo.setBatchList(Arrays.asList(batchInfo.getBatchId()));
+            Boolean deleteRsp = batchDomainService.deleteByIds(batchInfo);
+            Assertions.assertEquals(true, deleteRsp);
+
+
+            List<Long> taskIdList = new ArrayList<>();
+            for (DcTaskInfoDO taskInfo : taskList) {
+                taskIdList.add(taskInfo.getTaskId());
+            }
+            DcTaskInfoDO deleteTask = new DcTaskInfoDO();
+            deleteTask.setTaskList(taskIdList);
+            boolean deleteTaskRsp = taskInfoDomainService.deleteByIds(deleteTask);
+            Assertions.assertEquals(deleteTaskRsp, true);
+
+
+            DcBatchTaskDO batchTask = new DcBatchTaskDO();
+            batchTask.setBatchId(batchInfo.getBatchId());
+            Boolean deleteBatchRsp = batchTaskDomainService.deleteByBatchId(batchTask);
+            Assertions.assertEquals(true, deleteBatchRsp);
 
         }
     }
@@ -251,6 +313,25 @@ public class TestGetBatchTaskList {
         Boolean typeRsp = typeDomainService.insertList(taskList);
         Assertions.assertEquals(true, typeRsp);
         return taskList;
+    }
+
+    /**
+     * 任务依赖关系
+     *
+     * @return 任务信息
+     */
+    private List<DcBatchTaskDependDO> taskDependList(Long batchId) {
+        List<DcBatchTaskDependDO> batchTaskList = TestDcBatchTaskDependDomainService.getListDataBean();
+
+        for (DcBatchTaskDependDO taskDepend : batchTaskList) {
+            taskDepend.setBatchId(batchId);
+        }
+
+        Boolean rsp = taskDependDomainService.insertList(batchTaskList);
+        Assertions.assertEquals(rsp, true);
+
+        return batchTaskList;
+
     }
 
 

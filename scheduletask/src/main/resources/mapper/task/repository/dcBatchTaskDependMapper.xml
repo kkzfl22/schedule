@@ -88,6 +88,23 @@
         dc_batch_task_depend
     </select>
 
+
+    <!--批次中任务依赖关系表(dc_batch_task_depend)按id查询详细-->
+    <select id="getDependByBatchId"
+            parameterType="com.liujun.schedule.infrastructure.repository.task.po.DcBatchTaskDependPO"
+            resultMap="dcBatchTaskDependResultMap">
+        select
+        batch_id,
+        task_id,
+        prev_task_id
+        from
+        dc_batch_task_depend
+        <where>
+            <!--批次的ID-->
+            batch_id = #{batchId,jdbcType=BIGINT}
+        </where>
+    </select>
+
     <!--批次中任务依赖关系表(dc_batch_task_depend)按id查询详细-->
     <select id="detail" parameterType="com.liujun.schedule.infrastructure.repository.task.po.DcBatchTaskDependPO"
             resultMap="dcBatchTaskDependResultMap">

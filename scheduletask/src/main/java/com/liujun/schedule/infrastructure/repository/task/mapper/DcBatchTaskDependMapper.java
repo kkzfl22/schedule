@@ -48,6 +48,15 @@ public interface DcBatchTaskDependMapper {
      */
     List<DcBatchTaskDependPO> queryPage(DcBatchTaskDependPO param);
 
+
+    /**
+     * 通过批次号获取依赖关系
+     *
+     * @param param 参数信息
+     * @return 数据库查询结果集
+     */
+    List<DcBatchTaskDependPO> getDependByBatchId(DcBatchTaskDependPO param);
+
     /**
      * 按id查询详细
      *

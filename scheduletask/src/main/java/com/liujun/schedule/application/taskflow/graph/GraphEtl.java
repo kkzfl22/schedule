@@ -42,7 +42,7 @@ public class GraphEtl {
     // 获取邻接表
     List<Integer>[] linkData = graph.linkedTable();
     // 获取逆邻接表
-    List<Integer>[] reverData = graph.reverselinkedTable();
+    List<Integer>[] reVertexData = graph.reverselinkedTable();
 
     // 得到所有顶点
     List<Long> vertex = graph.getVertextList();
@@ -52,7 +52,7 @@ public class GraphEtl {
     // 构建邻接表
     this.buildOutLinkData(graph, pointBuildDataMap, linkData);
     // 构建逆邻接表
-    this.buildInLinkData(graph, pointBuildDataMap, reverData);
+    this.buildInLinkData(graph, pointBuildDataMap, reVertexData);
     // 添加结束顶点
     addVirtualFinish(graph, pointBuildDataMap);
 

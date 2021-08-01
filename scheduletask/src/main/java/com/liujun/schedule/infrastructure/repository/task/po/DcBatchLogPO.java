@@ -7,8 +7,8 @@ import lombok.ToString;
 /**
  * 批次的日志批次状态表(dc_batch_log)的数据库存储实体信息
  *
- * @version 0.0.1
  * @author liujun
+ * @version 0.0.1
  */
 @Getter
 @Setter
@@ -39,7 +39,7 @@ public class DcBatchLogPO {
     /**
      * 任务的状态:, 1:成功, 2:任务执行中, 0:初始化状态 -1：失败
      */
-    private Integer batchStatus;
+    private Integer batchRunStatus;
 
     /**
      * 任务日志，成功为空，失败时记录下失败信息
@@ -60,5 +60,12 @@ public class DcBatchLogPO {
      * 每个批次执行时的标识
      */
     private Long taskRuntimeFlag;
+
+
+    /**
+     * 任务之前的的状态
+     */
+    private Integer beforeBatchRunStatus;
+
 
 }

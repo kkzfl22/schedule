@@ -31,11 +31,11 @@ public class TaskContainerMap {
       return false;
     }
 
-    ContainData putdata = CONTAINER_MAP.putIfAbsent(batchId, graphPointMap);
+    ContainData putData = CONTAINER_MAP.putIfAbsent(batchId, graphPointMap);
 
-    if (null == putdata) {
+    if (null == putData) {
       return true;
-    } else if (putdata == graphPointMap) {
+    } else if (putData == graphPointMap) {
       return true;
     }
     return false;

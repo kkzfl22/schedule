@@ -24,6 +24,12 @@ public enum BatchFLowEnum {
      */
     PROC_DATA_BATCH_TASK_ID,
 
+
+    /**
+     * 批次信息
+     */
+    PROC_BATCH_INFO,
+
     /**
      * 用于存储数据当前批次下所任务
      */

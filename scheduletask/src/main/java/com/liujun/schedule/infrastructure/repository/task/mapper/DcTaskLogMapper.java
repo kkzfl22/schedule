@@ -7,8 +7,8 @@ import java.util.List;
 /**
  * 任务的日志信息表(dc_task_log)的数据库操作
  *
- * @version 0.0.1
  * @author liujun
+ * @version 0.0.1
  */
 public interface DcTaskLogMapper {
 
@@ -32,12 +32,12 @@ public interface DcTaskLogMapper {
 
 
     /**
-     * 修改方法
+     * 修改状态的方法
      *
      * @param param 参数信息
      * @return 数据库影响的行数
      */
-    int update(DcTaskLogPO param);
+    int updateStatus(DcTaskLogPO param);
 
 
     /**

@@ -1,5 +1,6 @@
 package com.liujun.schedule.domain.task.entity;
 
+import com.liujun.schedule.infrastructure.comm.uid.UidGenerator;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -7,8 +8,8 @@ import lombok.ToString;
 /**
  * 批次的日志批次状态-的领域实体信息
  *
- * @version 0.0.1
  * @author liujun
+ * @version 0.0.1
  */
 @Getter
 @Setter
@@ -39,7 +40,7 @@ public class DcBatchLogDO {
     /**
      * 任务的状态:, 1:成功, 2:任务执行中, 0:初始化状态 -1：失败
      */
-    private Integer batchStatus;
+    private Integer batchRunStatus;
 
     /**
      * 任务日志，成功为空，失败时记录下失败信息
@@ -60,5 +61,15 @@ public class DcBatchLogDO {
      * 每个批次执行时的标识
      */
     private Long taskRuntimeFlag;
+
+    /**
+     * 任务之前的的状态
+     */
+    private Integer beforeBatchRunStatus;
+
+
+    public void addProcess(UidGenerator uid) {
+        this.setLogId(uid.getUid());
+    }
 
 }

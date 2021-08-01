@@ -10,8 +10,8 @@ import java.util.List;
 /**
  * 领域实体与存储实体的转换
  *
- * @version 0.0.1
  * @author liujun
+ * @version 0.0.1
  */
 public class DcTaskLogPersistAssembler {
 
@@ -22,8 +22,8 @@ public class DcTaskLogPersistAssembler {
      * @param src 任务的日志信息-的领域实体信息
      * @return 任务的日志信息表(dc_task_log)的数据库存储实体信息
      */
-    public static DcTaskLogPO toPersistObject(DcTaskLogDO src){
-        if  (null == src){
+    public static DcTaskLogPO toPersistObject(DcTaskLogDO src) {
+        if (null == src) {
             return null;
         }
         DcTaskLogPO target = new DcTaskLogPO();
@@ -51,6 +51,8 @@ public class DcTaskLogPersistAssembler {
         target.setTaskOrder(src.getTaskOrder());
         //每次执行任务时的一个标识
         target.setTaskRuntimeFlag(src.getTaskRuntimeFlag());
+        //设置状态
+        target.setBeforeStatus(src.getBeforeStatus());
         return target;
     }
 
@@ -60,8 +62,8 @@ public class DcTaskLogPersistAssembler {
      * @param src 任务的日志信息表(dc_task_log)的数据库存储实体信息
      * @return 任务的日志信息-的领域实体信息
      */
-    public static DcTaskLogDO toDomainEntity(DcTaskLogPO src){
-        if  (null == src){
+    public static DcTaskLogDO toDomainEntity(DcTaskLogPO src) {
+        if (null == src) {
             return null;
         }
         DcTaskLogDO target = new DcTaskLogDO();
@@ -98,13 +100,13 @@ public class DcTaskLogPersistAssembler {
      * @param srcList 任务的日志信息-的领域实体信息
      * @return 任务的日志信息表(dc_task_log)的数据库存储实体信息
      */
-    public static List<DcTaskLogPO> toListPersistObject(List<DcTaskLogDO> srcList){
-        if  (srcList == null || srcList.isEmpty()){
+    public static List<DcTaskLogPO> toListPersistObject(List<DcTaskLogDO> srcList) {
+        if (srcList == null || srcList.isEmpty()) {
             return Collections.emptyList();
         }
-        
+
         List<DcTaskLogPO> targetList = new ArrayList<>(srcList.size());
-        for (DcTaskLogDO dataItemTmp : srcList){
+        for (DcTaskLogDO dataItemTmp : srcList) {
             targetList.add(toPersistObject(dataItemTmp));
         }
         return targetList;
@@ -116,13 +118,13 @@ public class DcTaskLogPersistAssembler {
      * @param srcList 任务的日志信息表(dc_task_log)的数据库存储实体信息
      * @return 任务的日志信息-的领域实体信息
      */
-    public static List<DcTaskLogDO> toListDomainEntity(List<DcTaskLogPO> srcList){
-        if  (srcList == null || srcList.isEmpty()){
+    public static List<DcTaskLogDO> toListDomainEntity(List<DcTaskLogPO> srcList) {
+        if (srcList == null || srcList.isEmpty()) {
             return Collections.emptyList();
         }
-        
+
         List<DcTaskLogDO> targetList = new ArrayList<>(srcList.size());
-        for (DcTaskLogPO dataItemTmp : srcList){
+        for (DcTaskLogPO dataItemTmp : srcList) {
             targetList.add(toDomainEntity(dataItemTmp));
         }
         return targetList;

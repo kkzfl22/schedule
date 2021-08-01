@@ -11,14 +11,14 @@
                 <ref bean="flowDataInit"/>
                 <!--检查任务是否在执行中-->
                 <ref bean="checkBatchRunnable"/>
-                <!--获取批次下的任务信息-->
-                <ref bean="getBatchTaskList"/>
-                <!--加载任务的依赖关系-->
-                <ref bean="getBatchTaskDepend"/>
+                <!--获取批次下的所有信息，包括批次下的所有任务，任务的依赖关系，及类型-->
+                <ref bean="getBatchAllData"/>
                 <!--数据依赖环的检查-->
-                <ref bean="batchTaskCycleCheck"/>
+                <ref bean="taskCycleCheck"/>
                 <!--构建内存容器中的数据-->
                 <ref bean="builderContainerData"/>
+                <!--添加任务日志-->
+                <ref bean="addBatchRunLog"/>
                 <!--调度任务提交线程池-->
                 <ref bean="scheduleTaskSubmit"/>
             </list>
@@ -33,22 +33,14 @@
                 <ref bean="checkTaskFinish"/>
                 <!--如果为结束顶点，将批次的状态改为完成,记录结束时间-->
                 <ref bean="updBatchFinishSuccess"/>
-                <!--修改批次的日志状态为成功-->
+                <!--修改任务的日志状态为成功-->
                 <ref bean="updBatchLogStatusSuccess"/>
-                <!--当前任务操作成功，移除掉内存中的数据-->
+                <!--如果当前操作成功，移除掉内存中的数据-->
                 <ref bean="batchFinishSuccessClean"/>
-                <!--检查批次任务是否已经失败-->
-                <ref bean="checkBatchFail"/>
-                <!--当前未结束，将任务状态改为运行中-->
-                <ref bean="updScheduleTaskStateRuning"/>
-                <!--如果类型为shell，则运行shell任务-->
-                <ref bean="runTaskShell"/>
-                <!--当前如果任务执行失败，则对批次任务状态进行修改-->
-                <ref bean="updScheduleTaskStatus"/>
+                <!--任务执行-->
+                <ref bean="doTask"/>
                 <!--如果当前任务执行失败，则对批次的日志状态进行修改-->
-                <ref bean="updBatchLogStatusFail"/>
-                <!--当任务失败，对批次的状态也进行修改，标识为失败-->
-                <ref bean="updBatchFinishFail"/>
+                <ref bean="updBatchLogStatusFinish"/>
                 <!--失败任务检查清理操作-->
                 <ref bean="taskStatusFailClean"/>
                 <!--进行图相关数据的更新-->
@@ -56,5 +48,21 @@
             </list>
         </property>
     </bean>
+
+
+    <!--任务的执行-->
+    <bean id="doTaskFlow" class="com.liujun.schedule.application.taskflow.flow.runtask.DoTaskFlow">
+        <property name="doTaskFlow">
+            <list>
+                <!--当前未结束，将任务状态改为运行中-->
+                <ref bean="updScheduleTaskStateRunning"/>
+                <!--如果类型为shell，则运行shell任务-->
+                <ref bean="runTaskShell"/>
+                <!--当前如果任务执行失败，则对批次任务状态进行修改-->
+                <ref bean="updScheduleTaskStatus"/>
+            </list>
+        </property>
+    </bean>
+    <bean id="taskStatusFailClean"/>
 
 </beans>

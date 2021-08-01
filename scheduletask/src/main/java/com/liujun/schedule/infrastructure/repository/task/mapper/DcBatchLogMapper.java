@@ -37,7 +37,7 @@ public interface DcBatchLogMapper {
      * @param param 参数信息
      * @return 数据库影响的行数
      */
-    int update(DcBatchLogPO param);
+    int updateStatus(DcBatchLogPO param);
 
 
     /**

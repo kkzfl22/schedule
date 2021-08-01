@@ -14,7 +14,7 @@ import org.springframework.stereotype.Service;
  * @version 0.0.1
  * @date 2019/12/11
  */
-@Service
+@Service("flowDataInit")
 public class FlowDataInit implements FlowInf {
 
   private Logger logger = LoggerFactory.getLogger(FlowDataInit.class);

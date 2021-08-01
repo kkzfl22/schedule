@@ -20,7 +20,7 @@ import java.util.List;
  * @version 0.0.1
  * @date 2019/12/15
  */
-@Service
+@Service("taskCycleCheck")
 public class BatchTaskCycleCheck implements FlowInf {
 
     private Logger logger = LoggerFactory.getLogger(BatchTaskCycleCheck.class);
@@ -28,26 +28,26 @@ public class BatchTaskCycleCheck implements FlowInf {
     @Override
     public boolean invokeFlow(ContextContainer context) {
 
-        logger.info("batch sqlmap.sqlmap.job cycle check start ");
+        logger.info("batch task job cycle check start ");
 
         // 1,获取批次下所有的任务的id
         List<DcBatchTaskDO> taskDataList =
                 context.getObject(BatchFLowEnum.PROC_DATA_BATCH_TASK_ID.name());
 
         // 2,获取任务的关联
-        List<DcBatchTaskDependDO> dependdList =
+        List<DcBatchTaskDependDO> dependList =
                 context.getObject(BatchFLowEnum.PROC_DATA_DEPEND_LINK.name());
 
         // 将检查环路顶点
-        Long cycleVertex = GraphEtl.INSTANCE.graphCycleCheck(taskDataList, dependdList);
+        Long cycleVertex = GraphEtl.INSTANCE.graphCycleCheck(taskDataList, dependList);
 
         // 如果不存在依赖环，则继续
         if (GraphPointEnum.NOT_CYCLE_FLAG.getPoint().equals(cycleVertex)) {
-            logger.info("batch sqlmap.sqlmap.job cycle check finish  not cycle");
+            logger.info("batch sqlmap.job cycle check finish  not cycle");
             return true;
         }
 
-        logger.info("batch sqlmap.sqlmap.job cycle check finish exists cycle  point {} ", cycleVertex);
+        logger.info("batch  job cycle check finish exists cycle  point {} ", cycleVertex);
         return false;
     }
 }

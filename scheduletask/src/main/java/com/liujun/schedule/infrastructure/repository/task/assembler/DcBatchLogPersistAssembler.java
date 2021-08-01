@@ -10,8 +10,8 @@ import java.util.List;
 /**
  * 领域实体与存储实体的转换
  *
- * @version 0.0.1
  * @author liujun
+ * @version 0.0.1
  */
 public class DcBatchLogPersistAssembler {
 
@@ -22,8 +22,8 @@ public class DcBatchLogPersistAssembler {
      * @param src 批次的日志批次状态-的领域实体信息
      * @return 批次的日志批次状态表(dc_batch_log)的数据库存储实体信息
      */
-    public static DcBatchLogPO toPersistObject(DcBatchLogDO src){
-        if  (null == src){
+    public static DcBatchLogPO toPersistObject(DcBatchLogDO src) {
+        if (null == src) {
             return null;
         }
         DcBatchLogPO target = new DcBatchLogPO();
@@ -36,7 +36,7 @@ public class DcBatchLogPersistAssembler {
         //批次中任务最大并行度，防止一个批次占用过多的线程
         target.setBatchConcurrent(src.getBatchConcurrent());
         //任务的状态:, 1:成功, 2:任务执行中, 0:初始化状态 -1：失败
-        target.setBatchStatus(src.getBatchStatus());
+        target.setBatchRunStatus(src.getBatchRunStatus());
         //任务日志，成功为空，失败时记录下失败信息
         target.setBatchMsg(src.getBatchMsg());
         //批次的开始时间
@@ -45,6 +45,8 @@ public class DcBatchLogPersistAssembler {
         target.setBatchFinishTime(src.getBatchFinishTime());
         //每个批次执行时的标识
         target.setTaskRuntimeFlag(src.getTaskRuntimeFlag());
+        //设置之前的状态
+        target.setBeforeBatchRunStatus(src.getBeforeBatchRunStatus());
         return target;
     }
 
@@ -54,8 +56,8 @@ public class DcBatchLogPersistAssembler {
      * @param src 批次的日志批次状态表(dc_batch_log)的数据库存储实体信息
      * @return 批次的日志批次状态-的领域实体信息
      */
-    public static DcBatchLogDO toDomainEntity(DcBatchLogPO src){
-        if  (null == src){
+    public static DcBatchLogDO toDomainEntity(DcBatchLogPO src) {
+        if (null == src) {
             return null;
         }
         DcBatchLogDO target = new DcBatchLogDO();
@@ -68,7 +70,7 @@ public class DcBatchLogPersistAssembler {
         //批次中任务最大并行度，防止一个批次占用过多的线程
         target.setBatchConcurrent(src.getBatchConcurrent());
         //任务的状态:, 1:成功, 2:任务执行中, 0:初始化状态 -1：失败
-        target.setBatchStatus(src.getBatchStatus());
+        target.setBatchRunStatus(src.getBatchRunStatus());
         //任务日志，成功为空，失败时记录下失败信息
         target.setBatchMsg(src.getBatchMsg());
         //批次的开始时间
@@ -86,13 +88,13 @@ public class DcBatchLogPersistAssembler {
      * @param srcList 批次的日志批次状态-的领域实体信息
      * @return 批次的日志批次状态表(dc_batch_log)的数据库存储实体信息
      */
-    public static List<DcBatchLogPO> toListPersistObject(List<DcBatchLogDO> srcList){
-        if  (srcList == null || srcList.isEmpty()){
+    public static List<DcBatchLogPO> toListPersistObject(List<DcBatchLogDO> srcList) {
+        if (srcList == null || srcList.isEmpty()) {
             return Collections.emptyList();
         }
-        
+
         List<DcBatchLogPO> targetList = new ArrayList<>(srcList.size());
-        for (DcBatchLogDO dataItemTmp : srcList){
+        for (DcBatchLogDO dataItemTmp : srcList) {
             targetList.add(toPersistObject(dataItemTmp));
         }
         return targetList;
@@ -104,13 +106,13 @@ public class DcBatchLogPersistAssembler {
      * @param srcList 批次的日志批次状态表(dc_batch_log)的数据库存储实体信息
      * @return 批次的日志批次状态-的领域实体信息
      */
-    public static List<DcBatchLogDO> toListDomainEntity(List<DcBatchLogPO> srcList){
-        if  (srcList == null || srcList.isEmpty()){
+    public static List<DcBatchLogDO> toListDomainEntity(List<DcBatchLogPO> srcList) {
+        if (srcList == null || srcList.isEmpty()) {
             return Collections.emptyList();
         }
-        
+
         List<DcBatchLogDO> targetList = new ArrayList<>(srcList.size());
-        for (DcBatchLogPO dataItemTmp : srcList){
+        for (DcBatchLogPO dataItemTmp : srcList) {
             targetList.add(toDomainEntity(dataItemTmp));
         }
         return targetList;

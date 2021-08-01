@@ -7,8 +7,8 @@ import lombok.ToString;
 /**
  * 任务的日志信息表(dc_task_log)的数据库存储实体信息
  *
- * @version 0.0.1
  * @author liujun
+ * @version 0.0.1
  */
 @Getter
 @Setter
@@ -75,5 +75,10 @@ public class DcTaskLogPO {
      * 每次执行任务时的一个标识
      */
     private Long taskRuntimeFlag;
+
+    /**
+     * 任务之前的的状态
+     */
+    private Integer beforeStatus;
 
 }

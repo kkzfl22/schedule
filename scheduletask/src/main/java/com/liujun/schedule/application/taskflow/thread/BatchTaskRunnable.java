@@ -35,8 +35,8 @@ public class BatchTaskRunnable implements Runnable {
 
     @Override
     public void run() {
-        logger.info("batch run sqlmap.sqlmap.job start info batch object {} batchId {}", batchRunTask, batchId);
+        logger.info("batch run task job start info batch object {} batchId {}", batchRunTask, batchId);
         batchRunTask.runBatch(batchId);
-        logger.info("batch run sqlmap.sqlmap.job finish info batch object {} batchId {}", batchRunTask, batchId);
+        logger.info("batch run task job finish info batch object {} batchId {}", batchRunTask, batchId);
     }
 }

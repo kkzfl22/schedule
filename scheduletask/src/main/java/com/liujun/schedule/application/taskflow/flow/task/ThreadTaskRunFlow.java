@@ -2,7 +2,7 @@ package com.liujun.schedule.application.taskflow.flow.task;
 
 import com.ddd.common.infrastructure.base.context.ContextContainer;
 import com.ddd.common.infrastructure.base.context.FlowInf;
-import com.liujun.schedule.application.taskflow.constant.EtlThreadTaskEnum;
+import com.liujun.schedule.application.taskflow.constant.ThreadTaskEnum;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -31,13 +31,13 @@ public class ThreadTaskRunFlow {
    */
   public void runThread(Long batchId, Long taskId, Long runTimeFlag) {
 
-    logger.info("thread run sqlmap.sqlmap.job batchid {} taskId {} runflag {}", batchId, taskId, runTimeFlag);
+    logger.info("thread run task job batchid {} taskId {} runflag {}", batchId, taskId, runTimeFlag);
 
     ContextContainer context = new ContextContainer();
 
-    context.put(EtlThreadTaskEnum.INPUT_TASK_ID.name(), taskId);
-    context.put(EtlThreadTaskEnum.INPUT_BATCH_ID.name(), batchId);
-    context.put(EtlThreadTaskEnum.INPUT_RUNTIME_FLAG.name(), runTimeFlag);
+    context.put(ThreadTaskEnum.INPUT_TASK_ID.name(), taskId);
+    context.put(ThreadTaskEnum.INPUT_BATCH_ID.name(), batchId);
+    context.put(ThreadTaskEnum.INPUT_RUNTIME_FLAG.name(), runTimeFlag);
 
     boolean success = true;
 
@@ -51,7 +51,7 @@ public class ThreadTaskRunFlow {
     context = null;
 
     logger.info(
-        "thread run sqlmap.sqlmap.job batchid {} taskId {} runflag {} rsp {}",
+        "thread run task job batchid {} taskId {} runflag {} rsp {}",
         batchId,
         taskId,
         runTimeFlag,

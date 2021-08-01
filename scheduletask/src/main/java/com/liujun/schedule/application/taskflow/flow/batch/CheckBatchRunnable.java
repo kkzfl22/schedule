@@ -37,21 +37,22 @@ public class CheckBatchRunnable implements FlowInf {
 
         while (true) {
             // 1,获取批次的id操作
-            DcBatchInfoDO batchState = this.getBatchInfo(batchId);
+            DcBatchInfoDO batchInfo = this.getBatchInfo(batchId);
             // 如果当前的状态为空
-            if (null != batchState) {
+            if (null != batchInfo) {
                 // 检查当前批次的状态信息,如果在运行中，则退出
-                if (batchState.getBatchRunStatus() == BatchRunStatusEnum.RUNNING.getStatus()) {
+                if (batchInfo.getBatchRunStatus() == BatchRunStatusEnum.RUNNING.getStatus()) {
                     logger.info("batch {} curr running already , curr exists", batchId);
                     return false;
                 }
                 // 其他状态则需要将任务改为执行中
                 else {
                     // 进行数据的更新状态操作
-                    boolean updStatusRsp = this.updateStatus(batchState, runtime);
+                    boolean updStatusRsp = this.updateStatus(batchInfo, runtime);
 
                     // 当数据更新成功时，则继续
                     if (updStatusRsp) {
+                        context.put(BatchFLowEnum.PROC_BATCH_INFO.name(), batchInfo);
                         return true;
                     }
 

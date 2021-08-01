@@ -7,7 +7,7 @@ import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
 /**
- * 处理etl的调度任务处理
+ * 处理调度任务的线程池,由于此线程池任务为向多批次任务同时运行，等待队列需要很小
  *
  * @author liujun
  * @version 0.0.1
@@ -20,7 +20,7 @@ public class EtlScheduleTaskThreadPool {
      * 如果当前线程数为corePoolSize，继续提交的任务被保存到阻塞队列中，等待被执行；
      * 如果执行了线程池的prestartAllCoreThreads()方法，线程池会提前创建并启动所有核心线程。
      */
-    private static final int minThread = 0;
+    private static final int minThread = 8;
 
     /**
      * 线程池中允许的最大线程数。如果当前阻塞队列满了，且继续提交任务，则创建新的线程执行任务，
@@ -34,7 +34,7 @@ public class EtlScheduleTaskThreadPool {
      *
      * <p>前提是当前线程数小于maximumPoolSize
      */
-    private static final int WAIT_NUM = 20;
+    private static final int WAIT_NUM = 4;
 
     /**
      * 线程空闲时的存活时间，即当线程没有任务执行时，继续存活的时间。
@@ -68,6 +68,7 @@ public class EtlScheduleTaskThreadPool {
      */
     private ArrayBlockingQueue queue = new ArrayBlockingQueue(WAIT_NUM);
 
+
     /**
      * 创建线程的工厂，通过自定义的线程工厂可以给每个新建的线程设置一个具有识别度的线程名
      */
@@ -91,6 +92,13 @@ public class EtlScheduleTaskThreadPool {
                     queue,
                     factory,
                     new ThreadPoolExecutor.AbortPolicy());
+
+
+    public EtlScheduleTaskThreadPool() {
+        //允许回收核心线程数
+        pool.allowCoreThreadTimeOut(true);
+    }
+
 
     /**
      * 提交任务给线程池运行
