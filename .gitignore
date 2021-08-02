@@ -1,3 +1,13 @@
 /scheduletask/logs/
 /.idea/
 /schedule.iml
+/scheduletask/target/
+/scheduletask/task.db
+/scheduletask/scheduletask.iml
+/task/target/
+/task/task.iml
+/common/target/
+/common/common.iml
+
+
+
