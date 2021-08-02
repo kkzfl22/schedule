@@ -1,4 +1,4 @@
-package com.liujun.schedule.domain.task.entity;
+package com.liujun.task.task.entity;
 
 import lombok.Getter;
 import lombok.Setter;

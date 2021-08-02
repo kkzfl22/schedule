@@ -1,8 +1,8 @@
 package com.liujun.schedule.application.taskflow.graph;
 
 import com.liujun.schedule.application.taskflow.constant.GraphPointEnum;
-import com.liujun.schedule.domain.task.entity.DcBatchTaskDO;
-import com.liujun.schedule.domain.task.entity.DcBatchTaskDependDO;
+import com.liujun.task.task.entity.DcBatchTaskDO;
+import com.liujun.task.task.entity.DcBatchTaskDependDO;
 
 import java.util.HashMap;
 import java.util.LinkedList;

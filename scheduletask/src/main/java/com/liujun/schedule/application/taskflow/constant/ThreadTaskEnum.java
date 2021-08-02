@@ -45,10 +45,11 @@ public enum ThreadTaskEnum {
      */
     PROC_TASK_RSP_FLAG,
 
-
     /**
      * 错误码信息
      */
     PROC_TASK_RSP_ERROR_CODE,
+
+
     ;
 }

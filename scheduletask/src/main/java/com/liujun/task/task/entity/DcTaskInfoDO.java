@@ -1,4 +1,4 @@
-package com.liujun.schedule.domain.task.entity;
+package com.liujun.task.task.entity;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -6,6 +6,7 @@ import lombok.ToString;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Map;
 
 /**
  * 调度任务信息-的领域实体信息
@@ -48,6 +49,7 @@ public class DcTaskInfoDO {
      * 任务的的配制
      */
     private String taskCfg;
+
 
     /**
      * 重试配制:-1,无限重试;5,15,30.执行后5秒重试，以此类推,成功则不再重试。

@@ -1,10 +1,7 @@
-/*
- * Copyright (C), 2008-2021, Paraview All Rights Reserved.
- */
 package com.liujun.schedule.application.taskflow.retry;
 
 import com.ddd.common.infrastructure.constant.ErrorCodeEnum;
-import com.ddd.common.infrastructure.exception.BusiException;
+import com.ddd.common.infrastructure.exception.BusinessException;
 import com.liujun.schedule.application.taskflow.constant.RunTaskConstant;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -22,7 +19,7 @@ import java.util.Map;
 public class TestRetryFunction {
 
 
-    Object runTask(Map<String, Object> input) throws BusiException {
+    Object runTask(Map<String, Object> input) throws BusinessException {
         System.out.println("Run:" + input);
         try {
             Thread.sleep(200);
@@ -30,10 +27,10 @@ public class TestRetryFunction {
             e.printStackTrace();
         }
 
-        throw new BusiException(ErrorCodeEnum.ERROR);
+        throw new BusinessException(ErrorCodeEnum.ERROR);
     }
 
-    Object runTaskSuccess(Map<String, Object> input) throws BusiException {
+    Object runTaskSuccess(Map<String, Object> input) throws BusinessException {
         Integer value = (int) input.get(RunTaskConstant.TRY_NUMBER);
 
         if (value < 2) {
@@ -44,7 +41,7 @@ public class TestRetryFunction {
                 e.printStackTrace();
             }
 
-            throw new BusiException(ErrorCodeEnum.ERROR);
+            throw new BusinessException(ErrorCodeEnum.ERROR);
         } else {
             return true;
         }

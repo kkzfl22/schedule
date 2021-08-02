@@ -1,6 +1,3 @@
-/*
- * Copyright (C), 2008-2021, Paraview All Rights Reserved.
- */
 package com.liujun.schedule.infrastructure.comm.uid;
 
 import com.ddd.common.infrastructure.utils.LocalSnowFlake;

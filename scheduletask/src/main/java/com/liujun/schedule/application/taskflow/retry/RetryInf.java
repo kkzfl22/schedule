@@ -1,6 +1,6 @@
 package com.liujun.schedule.application.taskflow.retry;
 
-import com.ddd.common.infrastructure.exception.BusiException;
+import com.ddd.common.infrastructure.exception.BusinessException;
 
 import java.util.Map;
 
@@ -19,7 +19,7 @@ public interface RetryInf {
      *
      * @param input 入参数
      * @return 返回的参数
-     * @throws BusiException 异常信息
+     * @throws BusinessException 异常信息
      */
-    Object reTry(Map<String, Object> input) throws BusiException;
+    Object reTry(Map<String, Object> input) throws BusinessException;
 }

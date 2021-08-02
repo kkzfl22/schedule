@@ -38,7 +38,7 @@
                 <!--如果当前操作成功，移除掉内存中的数据-->
                 <ref bean="batchFinishSuccessClean"/>
                 <!--任务执行-->
-                <ref bean="doTask"/>
+                <ref bean="startTask"/>
                 <!--如果当前任务执行失败，则对批次的日志状态进行修改-->
                 <ref bean="updBatchLogStatusFinish"/>
                 <!--失败任务检查清理操作-->
@@ -56,13 +56,13 @@
             <list>
                 <!--当前未结束，将任务状态改为运行中-->
                 <ref bean="updScheduleTaskStateRunning"/>
-                <!--如果类型为shell，则运行shell任务-->
-                <ref bean="runTaskShell"/>
+                <!--具体任务的执行操作-->
+                <ref bean="doTask"/>
                 <!--当前如果任务执行失败，则对批次任务状态进行修改-->
                 <ref bean="updScheduleTaskStatus"/>
             </list>
         </property>
     </bean>
-    <bean id="taskStatusFailClean"/>
+
 
 </beans>

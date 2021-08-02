@@ -5,9 +5,9 @@ import com.ddd.common.infrastructure.base.context.FlowInf;
 import com.ddd.common.infrastructure.utils.LocalDateTimeUtils;
 import com.liujun.schedule.application.taskflow.constant.TaskRunStatusEnum;
 import com.liujun.schedule.application.taskflow.constant.ThreadTaskEnum;
-import com.liujun.schedule.domain.task.entity.DcTaskInfoDO;
-import com.liujun.schedule.domain.task.entity.DcTaskLogDO;
-import com.liujun.schedule.domain.task.service.DcTaskLogDomainService;
+import com.liujun.task.task.entity.DcTaskInfoDO;
+import com.liujun.task.task.entity.DcTaskLogDO;
+import com.liujun.task.task.service.DcTaskLogDomainService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,27 +34,20 @@ public class AddTaskStateRunning implements FlowInf {
 
     @Override
     public boolean invokeFlow(ContextContainer context) {
+        logger.info("thread task job flow update task job status status start ...");
 
-        Boolean finishFlag = context.getObject(ThreadTaskEnum.PROC_RUN_FINISH_FLAG.name());
+        Long batchId = context.getObject(ThreadTaskEnum.INPUT_BATCH_ID.name());
+        Long runFlag = context.getObject(ThreadTaskEnum.INPUT_RUNTIME_FLAG.name());
+        DcTaskInfoDO taskInfo = context.getObject(ThreadTaskEnum.PROC_INPUT_TASK_INFO.name());
+        Integer runNum = context.getObject(ThreadTaskEnum.PROC_INPUT_RUN_NUM.name());
 
-        // 当前流程的状态为未完成，则继续
-        if (null != finishFlag && !finishFlag) {
+        //任务批次日志
+        DcTaskLogDO addBatchLog = this.taskLog(batchId, runFlag, taskInfo, runNum);
 
-            logger.info("thread task job flow update task job status status start ...");
+        // 进行批次状态的完成更改操作
+        boolean updTaskStatusRsp = taskLogDomainService.insert(addBatchLog);
 
-            Long batchId = context.getObject(ThreadTaskEnum.INPUT_BATCH_ID.name());
-            Long runFlag = context.getObject(ThreadTaskEnum.INPUT_RUNTIME_FLAG.name());
-            DcTaskInfoDO taskInfo = context.getObject(ThreadTaskEnum.PROC_INPUT_TASK_INFO.name());
-            Integer runNum = context.getObject(ThreadTaskEnum.PROC_INPUT_RUN_NUM.name());
-
-            //任务批次日志
-            DcTaskLogDO addBatchLog = this.taskLog(batchId, runFlag, taskInfo, runNum);
-
-            // 进行批次状态的完成更改操作
-            boolean updTaskStatusRsp = taskLogDomainService.insert(addBatchLog);
-
-            logger.info("thread task job flow update task job status status  rsp {}", updTaskStatusRsp);
-        }
+        logger.info("thread task job flow update task job status status  rsp {}", updTaskStatusRsp);
         return true;
     }
 

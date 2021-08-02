@@ -1,17 +1,13 @@
-/*
- * Copyright (C), 2008-2021, Paraview All Rights Reserved.
- */
 package com.liujun.schedule.application.taskflow.flow.batch;
 
 import com.alibaba.druid.spring.boot.autoconfigure.DruidDataSourceAutoConfigure;
 import com.ddd.common.infrastructure.base.context.ContextContainer;
 import com.ddd.common.infrastructure.base.context.FlowInf;
 import com.liujun.schedule.application.taskflow.constant.BatchFLowEnum;
-import com.liujun.schedule.application.taskflow.constant.TaskRunStatusEnum;
-import com.liujun.schedule.domain.task.constant.BatchRunStatusEnum;
-import com.liujun.schedule.domain.task.entity.DcBatchInfoDO;
-import com.liujun.schedule.domain.task.service.DcBatchInfoDomainService;
-import com.liujun.schedule.domain.task.service.TestDcBatchInfoDomainService;
+import com.liujun.task.task.constant.BatchRunStatusEnum;
+import com.liujun.task.task.entity.DcBatchInfoDO;
+import com.liujun.task.task.service.DcBatchInfoDomainService;
+import com.liujun.task.task.service.TestDcBatchInfoDomainService;
 import com.liujun.schedule.infrastructure.comm.uid.UidGenerator;
 import com.liujun.schedule.infrastructure.repository.task.mapper.config.MyBatisScanConfiguration;
 import com.liujun.schedule.infrastructure.repository.task.persistence.DcBatchInfoRepositoryImpl;

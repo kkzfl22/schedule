@@ -1,6 +1,6 @@
 package com.liujun.schedule.infrastructure.repository.task.assembler;
 
-import com.liujun.schedule.domain.task.entity.DcBatchLogDO;
+import com.liujun.task.task.entity.DcBatchLogDO;
 import com.liujun.schedule.infrastructure.repository.task.po.DcBatchLogPO;
 
 import java.util.ArrayList;

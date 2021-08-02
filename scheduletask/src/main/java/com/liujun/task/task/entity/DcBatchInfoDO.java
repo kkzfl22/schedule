@@ -1,8 +1,8 @@
-package com.liujun.schedule.domain.task.entity;
+package com.liujun.task.task.entity;
 
 import com.ddd.common.infrastructure.utils.LocalDateTimeUtils;
-import com.liujun.schedule.domain.task.constant.BatchRunStatusEnum;
-import com.liujun.schedule.domain.task.constant.BatchStatusEnum;
+import com.liujun.task.task.constant.BatchRunStatusEnum;
+import com.liujun.task.task.constant.BatchStatusEnum;
 import com.liujun.schedule.infrastructure.comm.uid.UidGenerator;
 import lombok.Getter;
 import lombok.Setter;

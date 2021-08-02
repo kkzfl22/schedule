@@ -1,25 +1,30 @@
-package com.liujun.schedule.domain.task.constant;
+package com.liujun.task.task.constant;
 
 /**
- * 批次的状态信息
+ * 批次的运行状态信息
  *
  * @author liujun
  * @version 0.0.1
  * @date 2019/12/11
  */
-public enum BatchStatusEnum {
+public enum BatchRunStatusEnum {
 
 
     /**
-     * 禁用
+     * 0:初始化状态
      */
-    DISABLE(0),
+    INIT(0),
+
+    /**
+     * 2:任务执行中
+     */
+    RUNNING(1),
 
 
     /**
-     * 启用
+     * 2 完成，可能成功，可能失败
      */
-    ENABLE(1),
+    FINISH(2),
 
     ;
 
@@ -28,7 +33,7 @@ public enum BatchStatusEnum {
      */
     private int status;
 
-    BatchStatusEnum(int status) {
+    BatchRunStatusEnum(int status) {
         this.status = status;
     }
 

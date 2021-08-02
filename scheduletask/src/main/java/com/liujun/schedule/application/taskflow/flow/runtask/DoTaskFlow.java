@@ -3,7 +3,7 @@ package com.liujun.schedule.application.taskflow.flow.runtask;
 import com.ddd.common.infrastructure.base.context.ContextContainer;
 import com.ddd.common.infrastructure.base.context.FlowInf;
 import com.liujun.schedule.application.taskflow.constant.ThreadTaskEnum;
-import com.liujun.schedule.domain.task.entity.DcTaskInfoDO;
+import com.liujun.task.task.entity.DcTaskInfoDO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

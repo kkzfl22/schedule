@@ -1,6 +1,3 @@
-/*
- * Copyright (C), 2008-2021, Paraview All Rights Reserved.
- */
 package com.liujun.schedule.application.taskflow.thread;
 
 import com.liujun.schedule.application.taskflow.container.TaskContainerMap;
