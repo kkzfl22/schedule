@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!--调度的CRON表达式信息表(dc_schedule_cron)数据库操作-->
+<mapper namespace="com.liujun.schedule.infrastructure.repository.task.mapper.DcScheduleCronMapper">
+    <resultMap type="com.liujun.schedule.infrastructure.repository.task.po.DcScheduleCronPO" id="dcScheduleCronResultMap">
+        <!--使用算法生成-->
+        <id property="taskId" column="task_id"/>
+        <!--使用算法生成-->
+        <result property="taskId" column="task_id"/>
+        <!--当前任务的类型, 1:按任务调度,即, DC_TASK中的任务ID, 2:按批次调用，即DC_BATCH_INFO中的批次的ID-->
+        <result property="taskType" column="task_type"/>
+        <!--类型(月:MONTH,周:WEEK,日:DAY)-->
+        <result property="scheduleType" column="schedule_type"/>
+        <!--值(月:1,2,3 周:MON,SUN)-->
+        <result property="scheduleValue" column="schedule_value"/>
+        <!--CRON的表达式-->
+        <result property="scheduleCron" column="schedule_cron"/>
+        <!--UI显示和配置的时间-->
+        <result property="uiTime" column="ui_time"/>
+        <!--创建者-->
+        <result property="creator" column="creator"/>
+        <!--更新者-->
+        <result property="updater" column="updater"/>
+        <!--创建时间-->
+        <result property="createTime" column="create_time"/>
+        <!--更新时间-->
+        <result property="updateTime" column="update_time"/>
+    </resultMap>
+    <!--调度的CRON表达式信息表(dc_schedule_cron)单个添加-->
+    <insert id="insert" parameterType="com.liujun.schedule.infrastructure.repository.task.po.DcScheduleCronPO">
+        insert into dc_schedule_cron 
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <!--使用算法生成-->
+            task_id,
+            <!--当前任务的类型, 1:按任务调度,即, DC_TASK中的任务ID, 2:按批次调用，即DC_BATCH_INFO中的批次的ID-->
+            task_type,
+            <!--类型(月:MONTH,周:WEEK,日:DAY)-->
+            schedule_type,
+            <!--值(月:1,2,3 周:MON,SUN)-->
+            schedule_value,
+            <!--CRON的表达式-->
+            schedule_cron,
+            <!--UI显示和配置的时间-->
+            ui_time,
+            <!--创建者-->
+            creator,
+            <!--更新者-->
+            updater,
+            <!--创建时间-->
+            create_time,
+            <!--更新时间-->
+            update_time,
+        </trim>
+        values
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <!--使用算法生成-->
+            #{taskId,jdbcType=BIGINT},
+            <!--当前任务的类型, 1:按任务调度,即, DC_TASK中的任务ID, 2:按批次调用，即DC_BATCH_INFO中的批次的ID-->
+            #{taskType,jdbcType=INTEGER},
+            <!--类型(月:MONTH,周:WEEK,日:DAY)-->
+            #{scheduleType,jdbcType=VARCHAR},
+            <!--值(月:1,2,3 周:MON,SUN)-->
+            #{scheduleValue,jdbcType=VARCHAR},
+            <!--CRON的表达式-->
+            #{scheduleCron,jdbcType=VARCHAR},
+            <!--UI显示和配置的时间-->
+            #{uiTime,jdbcType=VARCHAR},
+            <!--创建者-->
+            #{creator,jdbcType=VARCHAR},
+            <!--更新者-->
+            #{updater,jdbcType=VARCHAR},
+            <!--创建时间-->
+            #{createTime,jdbcType=TIMESTAMP},
+            <!--更新时间-->
+            #{updateTime,jdbcType=TIMESTAMP},
+        </trim>
+    </insert>
+
+
+    <!--调度的CRON表达式信息表(dc_schedule_cron)批量添加-->
+    <insert id="insertList" parameterType="com.liujun.schedule.infrastructure.repository.task.po.DcScheduleCronPO">
+        insert into dc_schedule_cron 
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <!--使用算法生成-->
+            task_id,
+            <!--当前任务的类型, 1:按任务调度,即, DC_TASK中的任务ID, 2:按批次调用，即DC_BATCH_INFO中的批次的ID-->
+            task_type,
+            <!--类型(月:MONTH,周:WEEK,日:DAY)-->
+            schedule_type,
+            <!--值(月:1,2,3 周:MON,SUN)-->
+            schedule_value,
+            <!--CRON的表达式-->
+            schedule_cron,
+            <!--UI显示和配置的时间-->
+            ui_time,
+            <!--创建者-->
+            creator,
+            <!--更新者-->
+            updater,
+            <!--创建时间-->
+            create_time,
+            <!--更新时间-->
+            update_time,
+        </trim>
+        values
+        <foreach collection="list" item="item" open="(" separator="),(" close=")" index="index">
+            <!--使用算法生成-->
+            #{item.taskId,jdbcType=BIGINT},
+            <!--当前任务的类型, 1:按任务调度,即, DC_TASK中的任务ID, 2:按批次调用，即DC_BATCH_INFO中的批次的ID-->
+            #{item.taskType,jdbcType=INTEGER},
+            <!--类型(月:MONTH,周:WEEK,日:DAY)-->
+            #{item.scheduleType,jdbcType=VARCHAR},
+            <!--值(月:1,2,3 周:MON,SUN)-->
+            #{item.scheduleValue,jdbcType=VARCHAR},
+            <!--CRON的表达式-->
+            #{item.scheduleCron,jdbcType=VARCHAR},
+            <!--UI显示和配置的时间-->
+            #{item.uiTime,jdbcType=VARCHAR},
+            <!--创建者-->
+            #{item.creator,jdbcType=VARCHAR},
+            <!--更新者-->
+            #{item.updater,jdbcType=VARCHAR},
+            <!--创建时间-->
+            #{item.createTime,jdbcType=TIMESTAMP},
+            <!--更新时间-->
+            #{item.updateTime,jdbcType=TIMESTAMP}
+        </foreach>
+    </insert>
+
+
+    <!--调度的CRON表达式信息表(dc_schedule_cron)修改方法-->
+    <update id="update" parameterType="com.liujun.schedule.infrastructure.repository.task.po.DcScheduleCronPO">
+        update dc_schedule_cron
+        <set>
+            <trim  suffixOverrides=",">
+                <!--当前任务的类型, 1:按任务调度,即, DC_TASK中的任务ID, 2:按批次调用，即DC_BATCH_INFO中的批次的ID-->
+                <if test=" taskType !=  null">
+                     task_type = #{taskType,jdbcType=INTEGER},
+                </if>
+                <!--类型(月:MONTH,周:WEEK,日:DAY)-->
+                <if test=" scheduleType !=  null and '' !=  scheduleType">
+                     schedule_type = #{scheduleType,jdbcType=VARCHAR},
+                </if>
+                <!--值(月:1,2,3 周:MON,SUN)-->
+                <if test=" scheduleValue !=  null and '' !=  scheduleValue">
+                     schedule_value = #{scheduleValue,jdbcType=VARCHAR},
+                </if>
+                <!--CRON的表达式-->
+                <if test=" scheduleCron !=  null and '' !=  scheduleCron">
+                     schedule_cron = #{scheduleCron,jdbcType=VARCHAR},
+                </if>
+                <!--UI显示和配置的时间-->
+                <if test=" uiTime !=  null and '' !=  uiTime">
+                     ui_time = #{uiTime,jdbcType=VARCHAR},
+                </if>
+                <!--创建者-->
+                <if test=" creator !=  null and '' !=  creator">
+                     creator = #{creator,jdbcType=VARCHAR},
+                </if>
+                <!--更新者-->
+                <if test=" updater !=  null and '' !=  updater">
+                     updater = #{updater,jdbcType=VARCHAR},
+                </if>
+                <!--创建时间-->
+                <if test=" createTime !=  null">
+                     create_time = #{createTime,jdbcType=TIMESTAMP},
+                </if>
+                <!--更新时间-->
+                <if test=" updateTime !=  null">
+                     update_time = #{updateTime,jdbcType=TIMESTAMP},
+                </if>
+            </trim>
+        </set>
+        <where> 
+            <!--使用算法生成-->
+            task_id = #{taskId,jdbcType=BIGINT}
+        </where> 
+    </update>
+
+    <!--调度的CRON表达式信息表(dc_schedule_cron)批量删除-->
+    <delete id="deleteByIds" parameterType="com.liujun.schedule.infrastructure.repository.task.po.DcScheduleCronPO">
+        delete from  dc_schedule_cron
+        <where> 
+            <!--使用算法生成-->
+            task_id = #{taskId,jdbcType=BIGINT}
+        </where> 
+    </delete>
+
+    <!--调度的CRON表达式信息表(dc_schedule_cron)分页查询-->
+    <select id="queryPage" parameterType="com.liujun.schedule.infrastructure.repository.task.po.DcScheduleCronPO" resultMap="dcScheduleCronResultMap">
+        select 
+        task_id,
+        task_type,
+        schedule_type,
+        schedule_value,
+        schedule_cron,
+        ui_time,
+        creator,
+        updater,
+        create_time,
+        update_time
+         from 
+        dc_schedule_cron
+    </select>
+
+    <!--调度的CRON表达式信息表(dc_schedule_cron)按id查询详细-->
+    <select id="detail" parameterType="com.liujun.schedule.infrastructure.repository.task.po.DcScheduleCronPO" resultMap="dcScheduleCronResultMap">
+        select 
+        task_id,
+        task_type,
+        schedule_type,
+        schedule_value,
+        schedule_cron,
+        ui_time,
+        creator,
+        updater,
+        create_time,
+        update_time
+         from 
+        dc_schedule_cron
+        <where> 
+            <!--使用算法生成-->
+            task_id = #{taskId,jdbcType=BIGINT}
+        </where> 
+    </select>
+
+</mapper>
