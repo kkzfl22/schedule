@@ -20,7 +20,7 @@ import java.util.Map;
  * @version 0.0.1
  * @date 2019/12/14
  */
-@Service
+@Service("graphDataUpd")
 public class GraphDataUpd implements FlowInf {
 
     private Logger logger = LoggerFactory.getLogger(GraphDataUpd.class);

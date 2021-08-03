@@ -1,7 +1,7 @@
 package com.liujun.schedule.application;
 
-import com.liujun.task.task.entity.DcBatchTaskDO;
-import com.liujun.task.task.service.DcBatchTaskDomainService;
+import com.liujun.schedule.domain.task.entity.DcBatchTaskDO;
+import com.liujun.schedule.domain.task.service.DcBatchTaskDomainService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

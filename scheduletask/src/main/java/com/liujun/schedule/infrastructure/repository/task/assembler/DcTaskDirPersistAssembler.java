@@ -1,6 +1,6 @@
 package com.liujun.schedule.infrastructure.repository.task.assembler;
 
-import com.liujun.task.task.entity.DcTaskDirDO;
+import com.liujun.schedule.domain.task.entity.DcTaskDirDO;
 import com.liujun.schedule.infrastructure.repository.task.po.DcTaskDirPO;
 
 import java.util.ArrayList;

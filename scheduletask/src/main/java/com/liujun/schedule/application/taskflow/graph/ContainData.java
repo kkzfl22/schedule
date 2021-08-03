@@ -1,9 +1,9 @@
 package com.liujun.schedule.application.taskflow.graph;
 
 import com.liujun.schedule.application.taskflow.flow.task.ThreadTaskRunFlow;
-import com.liujun.task.task.entity.DcBatchInfoDO;
-import com.liujun.task.task.entity.DcTaskInfoDO;
-import com.liujun.task.task.entity.DcTaskTypeDO;
+import com.liujun.schedule.domain.task.entity.DcBatchInfoDO;
+import com.liujun.schedule.domain.task.entity.DcTaskInfoDO;
+import com.liujun.schedule.domain.task.entity.DcTaskTypeDO;
 
 import java.util.Map;
 import java.util.concurrent.Semaphore;

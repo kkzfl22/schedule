@@ -22,6 +22,6 @@ public interface TaskInf {
      * @param container 容器信息
      * @return true 执行成功，false 执行失败
      */
-    boolean execute(TaskContainer container);
+    boolean execute(TaskContainer container) throws InterruptedException;
 
 }

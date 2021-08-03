@@ -17,47 +17,47 @@ VALUES ('test', '测试的任务', 'testCfg', '{testCfg:baseInfo}');
 
 INSERT INTO DC_TASK_INFO(TASK_ID, TASK_DIR_ID, TASK_NAME, TASK_TYPE, STATUS, TASK_CFG,
                          TASK_RETRY, TASK_MSG, CREATOR, UPDATER, CREATE_TIME, UPDATE_TIME)
-VALUES (10001, 1000, '任务执行A', 'test', 1, '{testA:test}', '2', '重试3次的任务', 'admin', NULL, NULL, NULL);
+VALUES (1001, 1000, '任务执行A', 'test', 1, '{testA:test}', '2', '重试3次的任务', 'admin', NULL, NULL, NULL);
 INSERT INTO DC_TASK_INFO(TASK_ID, TASK_DIR_ID, TASK_NAME, TASK_TYPE, STATUS, TASK_CFG,
                          TASK_RETRY, TASK_MSG, CREATOR, UPDATER, CREATE_TIME, UPDATE_TIME)
-VALUES (10002, 1000, '任务执行B', 'test', 1, '{testB:test3}', '2', '重试2次的任务', 'admin', NULL, NULL, NULL);
+VALUES (1002, 1000, '任务执行B', 'test', 1, '{testB:test3}', '2', '重试2次的任务', 'admin', NULL, NULL, NULL);
 INSERT INTO DC_TASK_INFO(TASK_ID, TASK_DIR_ID, TASK_NAME, TASK_TYPE, STATUS, TASK_CFG,
                          TASK_RETRY, TASK_MSG, CREATOR, UPDATER, CREATE_TIME, UPDATE_TIME)
-VALUES (10003, 1000, '任务执行C', 'test', 1, '{testC:test3}', '2', '重试2次的任务', 'admin', NULL, NULL, NULL);
+VALUES (1003, 1000, '任务执行C', 'test', 1, '{testC:test3}', '2', '重试2次的任务', 'admin', NULL, NULL, NULL);
 INSERT INTO DC_TASK_INFO(TASK_ID, TASK_DIR_ID, TASK_NAME, TASK_TYPE, STATUS, TASK_CFG,
                          TASK_RETRY, TASK_MSG, CREATOR, UPDATER, CREATE_TIME, UPDATE_TIME)
-VALUES (10004, 1000, '任务执行D', 'test', 1, '{testD:test3}', '2', '重试2次的任务', 'admin', NULL, NULL, NULL);
+VALUES (1004, 1000, '任务执行D', 'test', 1, '{testD:test3}', '2', '重试2次的任务', 'admin', NULL, NULL, NULL);
 INSERT INTO DC_TASK_INFO(TASK_ID, TASK_DIR_ID, TASK_NAME, TASK_TYPE, STATUS, TASK_CFG,
                          TASK_RETRY, TASK_MSG, CREATOR, UPDATER, CREATE_TIME, UPDATE_TIME)
-VALUES (10005, 1000, '任务执行E', 'test', 1, '{testE:test3}', '2', '重试2次的任务', 'admin', NULL, NULL, NULL);
+VALUES (1005, 1000, '任务执行E', 'test', 1, '{testE:test3}', '2', '重试2次的任务', 'admin', NULL, NULL, NULL);
 INSERT INTO DC_TASK_INFO(TASK_ID, TASK_DIR_ID, TASK_NAME, TASK_TYPE, STATUS, TASK_CFG,
                          TASK_RETRY, TASK_MSG, CREATOR, UPDATER, CREATE_TIME, UPDATE_TIME)
-VALUES (10006, 1000, '任务执行F', 'test', 1, '{testF:test3}', '2', '重试2次的任务', 'admin', NULL, NULL, NULL);
+VALUES (1006, 1000, '任务执行F', 'test', 1, '{testF:test3}', '2', '重试2次的任务', 'admin', NULL, NULL, NULL);
 INSERT INTO DC_TASK_INFO(TASK_ID, TASK_DIR_ID, TASK_NAME, TASK_TYPE, STATUS, TASK_CFG,
                          TASK_RETRY, TASK_MSG, CREATOR, UPDATER, CREATE_TIME, UPDATE_TIME)
-VALUES (10007, 1000, '任务执行G', 'test', 1, '{testG:test3}', '2', '重试2次的任务', 'admin', NULL, NULL, NULL);
+VALUES (1007, 1000, '任务执行G', 'test', 1, '{testG:test3}', '2', '重试2次的任务', 'admin', NULL, NULL, NULL);
 INSERT INTO DC_TASK_INFO(TASK_ID, TASK_DIR_ID, TASK_NAME, TASK_TYPE, STATUS, TASK_CFG,
                          TASK_RETRY, TASK_MSG, CREATOR, UPDATER, CREATE_TIME, UPDATE_TIME)
-VALUES (10008, 1000, '任务执行H', 'test', 1, '{testH:test3}', '2', '重试2次的任务', 'admin', NULL, NULL, NULL);
+VALUES (1008, 1000, '任务执行H', 'test', 1, '{testH:test3}', '2', '重试2次的任务', 'admin', NULL, NULL, NULL);
 
 
 
 INSERT INTO DC_BATCH_TASK(BATCH_ID, TASK_ID)
-VALUES ('1001', '10001');
+VALUES ('1001', '1001');
 INSERT INTO DC_BATCH_TASK(BATCH_ID, TASK_ID)
-VALUES ('1001', '10002');
+VALUES ('1001', '1002');
 INSERT INTO DC_BATCH_TASK(BATCH_ID, TASK_ID)
-VALUES ('1001', '10003');
+VALUES ('1001', '1003');
 INSERT INTO DC_BATCH_TASK(BATCH_ID, TASK_ID)
-VALUES ('1001', '10004');
+VALUES ('1001', '1004');
 INSERT INTO DC_BATCH_TASK(BATCH_ID, TASK_ID)
-VALUES ('1001', '10005');
+VALUES ('1001', '1005');
 INSERT INTO DC_BATCH_TASK(BATCH_ID, TASK_ID)
-VALUES ('1001', '10006');
+VALUES ('1001', '1006');
 INSERT INTO DC_BATCH_TASK(BATCH_ID, TASK_ID)
-VALUES ('1001', '10007');
+VALUES ('1001', '1007');
 INSERT INTO DC_BATCH_TASK(BATCH_ID, TASK_ID)
-VALUES ('1001', '10008');
+VALUES ('1001', '1008');
 
 
 

@@ -13,12 +13,10 @@ import com.liujun.task.collect.TaskContainer;
 import com.liujun.task.collect.TaskInf;
 import com.liujun.task.entity.DcTaskInfo;
 import com.liujun.task.entity.TaskEntity;
-import com.liujun.task.task.entity.DcTaskInfoDO;
-import com.liujun.task.task.service.DcTaskLogDomainService;
+import com.liujun.schedule.domain.task.entity.DcTaskInfoDO;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Collections;

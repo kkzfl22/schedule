@@ -1,8 +1,8 @@
 package com.liujun.schedule.application;
 
 import com.ddd.common.infrastructure.entity.DomainPage;
-import com.liujun.task.task.entity.DcScheduleCronDO;
-import com.liujun.task.task.service.DcScheduleCronDomainService;
+import com.liujun.schedule.domain.task.entity.DcScheduleCronDO;
+import com.liujun.schedule.domain.task.service.DcScheduleCronDomainService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

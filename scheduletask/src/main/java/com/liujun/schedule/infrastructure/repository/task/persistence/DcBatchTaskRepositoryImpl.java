@@ -1,7 +1,7 @@
 package com.liujun.schedule.infrastructure.repository.task.persistence;
 
-import com.liujun.task.task.entity.DcBatchTaskDO;
-import com.liujun.task.task.repository.facade.DcBatchTaskRepositoryInterface;
+import com.liujun.schedule.domain.task.entity.DcBatchTaskDO;
+import com.liujun.schedule.domain.task.facade.DcBatchTaskRepositoryInterface;
 import com.liujun.schedule.infrastructure.repository.task.assembler.DcBatchTaskPersistAssembler;
 import com.liujun.schedule.infrastructure.repository.task.mapper.DcBatchTaskMapper;
 import com.liujun.schedule.infrastructure.repository.task.po.DcBatchTaskPO;

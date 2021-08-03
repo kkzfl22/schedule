@@ -1,6 +1,6 @@
 package com.liujun.schedule.infrastructure.repository.task.assembler;
 
-import com.liujun.task.task.entity.DcScheduleCronDO;
+import com.liujun.schedule.domain.task.entity.DcScheduleCronDO;
 import com.liujun.schedule.infrastructure.repository.task.po.DcScheduleCronPO;
 
 import java.util.ArrayList;
